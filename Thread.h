@@ -1,6 +1,7 @@
 #ifndef THREAD_H
 #define THREAD_H
 
+#include <Arduino.h>
 
 /*
   Base class for threads running on MicrOS
@@ -40,9 +41,8 @@ class Thread
     };
 
   protected:
-    //the time remaining until the thread finished sleeping
-    // 0 if th thread is not sleeping
-    unsigned long remainingTime;
+    //the time in ms at which the thread finishes sleeping
+    unsigned long sleepEndTime;
     //flag indicating the current state of this thread
     State threadState;
 

@@ -3,12 +3,12 @@
 
 void Thread::Sleep(unsigned long ms)
 {
-  remainingTime = ms;
+  sleepEndTime = millis() + ms;
 }
 
 void Thread::remainingSleepTime()
 {
-  return remainingTime;
+  return  isSleeping ? sleepEndTime - millis() : 0;
 }
 
 bool Thread::isSleeping()
