@@ -6,7 +6,7 @@ void Thread::Sleep(unsigned long ms)
   sleepEndTime = millis() + ms;
 }
 
-void Thread::remainingSleepTime()
+unsigned long Thread::remainingSleepTime()
 {
   return  isSleeping ? sleepEndTime - millis() : 0;
 }
