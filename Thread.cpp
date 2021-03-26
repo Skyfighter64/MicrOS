@@ -8,7 +8,11 @@ void Thread::Sleep(unsigned long ms)
 
 unsigned long Thread::remainingSleepTime()
 {
-  return  isSleeping ? sleepEndTime - millis() : 0;
+  if(isSleeping())
+  {
+    return  sleepEndTime - millis();
+  }
+  return 0;
 }
 
 bool Thread::isSleeping()
