@@ -34,6 +34,8 @@ class Thread
       function returning the remaining sleep time in ms
     */
     unsigned long remainingSleepTime();
+    //function waking the thread up from sleep
+    void Continue();
     enum State
     {
       ACTIVE = 0,

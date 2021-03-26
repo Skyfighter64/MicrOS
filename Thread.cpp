@@ -15,3 +15,9 @@ bool Thread::isSleeping()
 {
   return threadState == Thread::SLEEPING;
 }
+
+void Thread::Continue()
+{
+  threadState = Thread::ACTIVE;
+  sleepEndTime = 0;
+}
