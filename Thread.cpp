@@ -1,17 +1,12 @@
 #include "Thread.h"
 
 
-void Thread::Pause()
+void Thread::Sleep(unsigned long ms)
 {
-  threadState = Thread::PAUSED;
+  remainingTime = ms;
 }
 
-void Thread::Continue()
+bool Thread::isSleeping()
 {
-  threadState = Thread::ACTIVE;
-}
-
-bool Thread::isPaused()
-{
-  return threadState == Thread::PAUSED;
+  return threadState == Thread::SLEEPING;
 }
