@@ -24,15 +24,15 @@ class Thread
   public:
     //the name of this thread, May not be unique
     char * name;
-    //the time remaining until the thread finished sleeping
-    // 0 if th thread is not sleeping
-    unsigned long remainingTime;
 
     virtual void Initialize() = 0;
     virtual void Run() = 0;
     void Sleep(unsigned long ms);
     bool isSleeping();
-
+    /*
+      function returning the remaining sleep time in ms
+    */
+    unsigned long remainingSleepTime();
     enum State
     {
       ACTIVE = 0,
@@ -40,6 +40,9 @@ class Thread
     };
 
   protected:
+    //the time remaining until the thread finished sleeping
+    // 0 if th thread is not sleeping
+    unsigned long remainingTime;
     //flag indicating the current state of this thread
     State threadState;
 
