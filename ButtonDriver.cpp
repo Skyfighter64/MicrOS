@@ -31,7 +31,7 @@ void ButtonDriver::Run()
 {
   //loop trough all buttons
   PushButton * iteratorPtr = pushButtons.getFirstPtr();
-  while(iteratorPtr != NULL)
+  while(iteratorPtr != nullptr)
   {
     UpdateButton(iteratorPtr);
     iteratorPtr = pushButtons.getNextPtr();

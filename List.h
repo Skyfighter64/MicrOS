@@ -1,6 +1,5 @@
 #ifndef LIST_H
 #define LIST_H
-#include <Arduino.h>
 
 template <class T>
 class List
@@ -10,7 +9,7 @@ private:
   class ListNode
   {
   public:
-    ListNode(T value) : value(value), next(NULL) {}
+    ListNode(T value) : value(value), next(nullptr) {}
     ListNode * next;
     T value;
   };
@@ -63,7 +62,7 @@ public:
         delete root;
         root = newRoot;
     }
-    while(currentItemPtr != NULL)
+    while(currentItemPtr != nullptr)
     {
       //check if the next item is the one which should be removed
       if(previous->next->value == value)
@@ -79,7 +78,7 @@ public:
 
           //reset the previous element so it can be reused for iteration outside
           //this function
-          previous = NULL;
+          previous = nullptr;
           return;
       }
       //iterate to the next item in the list
@@ -93,15 +92,15 @@ public:
   T * getFirstPtr()
   {
     previous = root;
-    return root == NULL? NULL : &root->value;
+    return root == nullptr? nullptr : &root->value;
   }
 
   //get a pointer to the next item in the list;
-  // returns NULL if the next item is the end of the list, or the root element on
+  // returns a nullptr if the next item is the end of the list, or the root element on
   // its first call
   T * getNextPtr()
   {
-    if(previous == NULL)
+    if(previous == nullptr)
     {
       //there is no previous iteration element
       //return the root element
@@ -112,13 +111,13 @@ public:
     //move the iteration pointer to the next element
     previous = previous->next;
     //return the value of the next element or null if the end of the list was reached
-    return previous == NULL ? NULL : &previous->value;
+    return previous == nullptr ? nullptr : &previous->value;
 
   }
   //function returning if the list is empty
   bool isEmpty()
   {
-    return root == NULL;
+    return root == nullptr;
   }
 
   //function retuning the number of elements in the list with the same value as the given one
@@ -127,7 +126,7 @@ public:
     T * element = getFirstPtr();
     int count = 0;
 
-    while (element != NULL)
+    while (element != nullptr)
     {
       if(element == value)
       {

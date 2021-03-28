@@ -140,7 +140,7 @@ uint8_t * TextBox::SetFont(const uint8_t * font, U8G2 * display)
   //get the current font
   uint8_t * oldFont = display->getU8g2()->font;
   //set the font if possible
-  if(font != NULL)
+  if(font != nullptr)
   {
     display->setFont(font);
   }

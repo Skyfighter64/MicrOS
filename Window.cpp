@@ -17,7 +17,7 @@ void Window::Draw(U8G2 * display)
     Draw all UI elements
   */
   UIElement ** element = uiElements.getFirstPtr();
-  while(element != NULL)
+  while(element != nullptr)
   {
       (*element)->Draw(display);
       element = uiElements.getNextPtr();

@@ -1,6 +1,6 @@
 #include "MicrOS.h"
 
-#include <Arduino.h> // serial debugging
+
 
 // standard constructor
 /*
@@ -11,6 +11,10 @@
 MicrOS::MicrOS(U8G2 * _display, List<PushButton*> _buttons, List<Window*> _windows)
 {
   /*
+      TODO: delete
+
+
+
 
       This constructor does not work currently
       Accessing UIButton::pin in Inputmanager.cpp does not work because the inputmanager
@@ -62,7 +66,7 @@ void MicrOS::Run()
   #endif
   //run each thread of the thread list
   Thread** thread = threads.getFirstPtr();
-  while (thread != NULL)
+  while (thread != nullptr)
   {
     if(!(*thread)->isSleeping())
     {

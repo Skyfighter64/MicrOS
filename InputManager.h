@@ -1,7 +1,7 @@
 #ifndef INPUT_MANAGER_H
 #define INPUT_MANAGER_H
 
-#include <Arduino.h>
+#include <Arduino.h> //serial debugging
 #include "List.h"
 #include "Clickable.h"
 #include "WindowManager.h"

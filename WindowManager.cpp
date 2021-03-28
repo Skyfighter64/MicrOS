@@ -3,7 +3,7 @@
 
 
 
-WindowManager::WindowManager(U8G2 * _display) : display(_display), activeWindow(NULL)
+WindowManager::WindowManager(U8G2 * _display) : display(_display), activeWindow(nullptr)
 {
   name = "WindowManager";
 }
@@ -19,7 +19,7 @@ void WindowManager::Initialize()
 void WindowManager::Run()
 {
   //check if there are any windows
-  if( activeWindow == NULL)
+  if( activeWindow == nullptr)
   {
     #ifdef DEBUG
       Serial.println("No Window to display");

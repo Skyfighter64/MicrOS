@@ -14,9 +14,9 @@ void InputManager::ClickEvent(uint8_t _ID)
   //loop trough all clickables and execute OnClick of the ones with
   // a matching ID
   Clickable ** iterator = clickables->getFirstPtr();
-  while(iterator != NULL)
+  while(iterator != nullptr)
   {
-    if((*iterator)->ID == _ID && (*iterator)->OnClick != NULL)
+    if((*iterator)->ID == _ID && (*iterator)->OnClick != nullptr)
     {
       (*iterator)->OnClick();
     }
@@ -34,7 +34,7 @@ void InputManager::SetState(uint8_t _ID, bool _state )
   //loop trough all clickables and execute OnClick of the ones with
   // a matching ID
   Clickable** iterator = clickables->getFirstPtr();
-  while(iterator != NULL)
+  while(iterator != nullptr)
   {
     if((*iterator)->ID == _ID)
     {

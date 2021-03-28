@@ -101,9 +101,9 @@ void BackClick2()
 }
 
 TextButton backButton2 = TextButton( Vector2D(0,50), "back", /*pin*/ 3, &BackClick2);
-TextButton upButton2 = TextButton( Vector2D(32,50), "up", /*pin*/ 2, NULL);
-TextButton downButton2 = TextButton( Vector2D(64,50), "down", /*pin*/ 6, NULL);
-TextButton okButton2 = TextButton( Vector2D(96,50), "OK", /*pin*/ 5, NULL);
+TextButton upButton2 = TextButton( Vector2D(32,50), "up", /*pin*/ 2, nullptr);
+TextButton downButton2 = TextButton( Vector2D(64,50), "down", /*pin*/ 6, &DownClick);
+TextButton okButton2 = TextButton( Vector2D(96,50), "OK", /*pin*/ 5, nullptr);
 //TODO: adjust to new InputManager
 List<Clickable*> secondUIButtons = List<Clickable*>(4, (Clickable*[]) {&backButton2, &upButton2, &downButton2, &okButton2});
 
@@ -147,7 +147,7 @@ void UpClick()
 
 void DownClick()
 {
-
+  buttonDriver.Sleep(1000);
 }
 
 void RightClick()
@@ -175,6 +175,38 @@ void setup() {
   Serial.begin(9600);
   Serial.print(F("Free memory:"));
   Serial.println(freeMemory());
+
+  Serial.println(F("Size of:"));
+  Serial.print(F("InputManager: "));
+  Serial.println(sizeof(InputManager));
+  Serial.print(F("WindowManager: "));
+  Serial.println(sizeof(WindowManager));
+  Serial.print(F("Thread: "));
+  Serial.println(sizeof(Thread));
+  Serial.print(F("MicrOS: "));
+  Serial.println(sizeof(MicrOS));
+  Serial.print(F("PushButton: "));
+  Serial.println(sizeof(PushButton));
+  Serial.print(F("TextButton: "));
+  Serial.println(sizeof(TextButton));
+  Serial.print(F("TextBox: "));
+  Serial.println(sizeof(TextBox));
+  Serial.print(F("UIButton: "));
+  Serial.println(sizeof(UIButton));
+  Serial.print(F("UIText: "));
+  Serial.println(sizeof(UIText));
+  Serial.print(F("UIElement: "));
+  Serial.println(sizeof(UIElement));
+  Serial.print(F("Vector2D: "));
+  Serial.println(sizeof(Vector2D));
+  Serial.print(F("Window: "));
+  Serial.println(sizeof(Window));
+  Serial.print(F("Clickable: "));
+  Serial.println(sizeof(Clickable));
+  Serial.print(F("ButtonDriver: "));
+  Serial.println(sizeof(ButtonDriver));
+  Serial.print(F("List<Thread*>: "));
+  Serial.println(sizeof(List<Thread*>));
   #endif
 
 
@@ -182,7 +214,7 @@ void setup() {
   os.Start();
   //add the button driver thread
   os.AddThread(&buttonDriver);
-  os.GetWindowManager()->SetActiveWindow(&mainWindow);
+  os.GetWindowManager()->SetActiveWindow(&secondWindow);
 
 }
 
@@ -219,7 +251,7 @@ void loop() {
     Serial.println(i);
     Serial.print(F("Free memory:"));
     Serial.println(freeMemory());
-    delay(500);
+    //delay(500);
     #endif
 
   } while ( u8g2.nextPage() );

@@ -2,7 +2,7 @@
 #define BUTTON_DRIVER_H
 
 #include <Bounce2.h>
-#include <Arduino.h>
+#include <Arduino.h> //serial debugging
 #include "Thread.h"
 #include "InputManager.h"
 #include "List.h"

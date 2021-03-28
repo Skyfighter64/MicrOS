@@ -7,15 +7,14 @@
 #include "WindowManager.h"
 #include "InputManager.h"
 #include <U8g2lib.h> // display driver
-
+#include <Arduino.h> // serial debugging
 
 /*
 Micros is the  Operating System
-
 it should have a list with all threads and run them. It also should keep track of thread sleep times
 And start/stop threads
 
-
+TODO: rephrase
 
 */
 

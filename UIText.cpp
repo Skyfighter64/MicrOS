@@ -1,10 +1,10 @@
 #include "UIText.h"
 
-UIText::UIText() : UIElement(), text(""), font(NULL)
+UIText::UIText() : UIElement(), text(""), font(nullptr)
 {
 
 }
-UIText::UIText(char * _text): UIElement(), text(_text), font(NULL)
+UIText::UIText(char * _text): UIElement(), text(_text), font(nullptr)
 {
 
 }
@@ -12,7 +12,7 @@ UIText::UIText(const uint8_t * _font, char * _text): UIElement(), text(_text), f
 {
 
 }
-UIText::UIText(Vector2D _position, char * _text): UIElement(_position, Vector2D(0,0)), text(_text), font(NULL)
+UIText::UIText(Vector2D _position, char * _text): UIElement(_position, Vector2D(0,0)), text(_text), font(nullptr)
 {
 
 }
@@ -42,7 +42,7 @@ uint8_t * UIText::SetFont(const uint8_t * font, U8G2 * display)
   const uint8_t * oldFont = display->getU8g2()->font;
 
   //switch the font if a special font was given
-  if(font != NULL)
+  if(font != nullptr)
   {
     display->setFont(font);
   }
