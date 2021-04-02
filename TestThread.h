@@ -9,6 +9,7 @@
 class TestThread : public Thread
 {
   public:
+    unsigned long sleepEndTime;
     TestThread(char * _name)
     {
       name = _name;

@@ -17,6 +17,8 @@
 #include "Clickable.h"
 #include "List.h"
 #include "ButtonDriver.h"
+#include "TestThread.h"
+#include "SystemInfoThread.h"
 
 //#define DEBUG
 
@@ -58,7 +60,11 @@ MicrOS os(&windowManager, &inputManager);
 
 ButtonDriver buttonDriver = ButtonDriver(&inputManager, /*button pins*/(uint8_t[]){2, 3, 5, 6}, 4);
 
-
+/*
+  custom threads
+*/
+TestThread testThread = TestThread("Test");
+SystemInfoThread systemInfoThread = SystemInfoThread();
 
 /*
   Main window design elements
@@ -110,10 +116,10 @@ List<Clickable*> secondUIButtons = List<Clickable*>(4, (Clickable*[]) {&backButt
 TextBox ramBox = TextBox(/* position */ Vector2D(100, 10), /* text */ "");
 UIText cycleTimeText = UIText( Vector2D(60, 30), "");
 TextBox windowName = TextBox(Vector2D( 20, 10),"2nd Window");
+UIText sleepTestText = UIText(Vector2D(0,42), "");
+UIText sleepDerivationText = UIText(Vector2D(0,48), "");
 
-List<UIElement*> secondWindowElements = List<UIElement*>(8, (UIElement*[]){&windowName,&ramBox, &cycleTimeText, &counter, &backButton2, &upButton2, &downButton2, &okButton2});
-
-unsigned long timeMS = 0;
+List<UIElement*> secondWindowElements = List<UIElement*>(10, (UIElement*[]){&sleepDerivationText, &sleepTestText, &windowName,&ramBox, &cycleTimeText, &counter, &backButton2, &upButton2, &downButton2, &okButton2});
 
 Window secondWindow = Window(secondUIButtons, secondWindowElements);
 
@@ -205,6 +211,8 @@ void setup() {
   Serial.println(sizeof(Clickable));
   Serial.print(F("ButtonDriver: "));
   Serial.println(sizeof(ButtonDriver));
+  Serial.print(F("SystemInfoThread: "));
+  Serial.println(sizeof(SystemInfoThread));
   Serial.print(F("List<Thread*>: "));
   Serial.println(sizeof(List<Thread*>));
   #endif
@@ -216,7 +224,13 @@ void setup() {
   os.AddThread(&buttonDriver);
   os.GetWindowManager()->SetActiveWindow(&secondWindow);
 
+  //add custom threads
+  os.AddThread(&systemInfoThread);
+  os.AddThread(&testThread);
 }
+
+
+unsigned long sleepTime;
 
 void loop() {
   // put your main code here, to run repeatedly:
@@ -236,46 +250,43 @@ void loop() {
     counter.text = i_buff;
 
     char mem_text_buff[5];
-    sprintf(mem_text_buff, "%dB", freeMemory());
+    sprintf(mem_text_buff, "%dB", systemInfoThread.GetFreeMemory());
     ramBox.uiText.text = mem_text_buff;
 
-    //measure the cycle frequency in kHz and display it
+    //measure the cycle frequency in Hz and display it
     char time_text_buff[15];
-    dtostrf((float) 1000000.0/(micros() - timeMS), 4, 2, time_text_buff);
+    dtostrf(systemInfoThread.GetCycleFrequency(), 4, 2, time_text_buff);
     strcat(time_text_buff, "Hz");
     cycleTimeText.text = time_text_buff;
-    timeMS = micros();
+
+
+    /*
+      test sleeping accuracy
+    */
+    if(!testThread.isSleeping())
+    {
+      char sleep_buff[25];
+      sprintf(sleep_buff, "Slept for %dms\nDerivation: %dms", sleepTime);
+      sleepTestText.text = sleep_buff;
+      char der_buff[25];
+      sprintf(der_buff,"Delta: %dms", millis() - testThread.sleepEndTime);
+      sleepDerivationText.text = der_buff;
+      //generate random sleep time in ms
+      sleepTime = random(500,5000);
+      testThread.Sleep(sleepTime);
+    }
+
+
+
 
     #ifdef DEBUG
     Serial.print(F("Main Loop. i:"));
     Serial.println(i);
     Serial.print(F("Free memory:"));
-    Serial.println(freeMemory());
+    Serial.println(systemInfoThread.GetFreeMemory());
     //delay(500);
     #endif
 
   } while ( u8g2.nextPage() );
 
-}
-
-
-/*
-  This section contains the code for calculating the remaining memory
-*/
-#ifdef __arm__
-// should use uinstd.h to define sbrk but Due causes a conflict
-extern "C" char* sbrk(int incr);
-#else  // __ARM__
-extern char *__brkval;
-#endif  // __arm__
-
-int freeMemory() {
-  char top;
-#ifdef __arm__
-  return &top - reinterpret_cast<char*>(sbrk(0));
-#elif defined(CORE_TEENSY) || (ARDUINO > 103 && ARDUINO != 151)
-  return &top - __brkval;
-#else  // __arm__
-  return __brkval ? &top - __brkval : &top - __malloc_heap_start;
-#endif  // __arm__
 }
