@@ -33,5 +33,4 @@ void Thread::Continue()
   Serial.println(" stopped sleeping");
   #endif
   threadState = Thread::ACTIVE;
-  sleepEndTime = 0;
 }

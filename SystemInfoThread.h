@@ -24,7 +24,7 @@ public:
   */
   int GetFreeMemory();
   /*
-    function returning the cycle time for the last OS cycle
+    function returning the cycle time for the last OS cycle in us
     This may return false information if called within the first cycle
     after waking up from sleep
   */

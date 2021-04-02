@@ -17,8 +17,9 @@
 #include "Clickable.h"
 #include "List.h"
 #include "ButtonDriver.h"
-#include "TestThread.h"
 #include "SystemInfoThread.h"
+
+#include "SleepTestThread.h"
 
 //#define DEBUG
 
@@ -63,7 +64,7 @@ ButtonDriver buttonDriver = ButtonDriver(&inputManager, /*button pins*/(uint8_t[
 /*
   custom threads
 */
-TestThread testThread = TestThread("Test");
+SleepTestThread sleepTestThread = SleepTestThread();
 SystemInfoThread systemInfoThread = SystemInfoThread();
 
 /*
@@ -114,12 +115,14 @@ TextButton okButton2 = TextButton( Vector2D(96,50), "OK", /*pin*/ 5, nullptr);
 List<Clickable*> secondUIButtons = List<Clickable*>(4, (Clickable*[]) {&backButton2, &upButton2, &downButton2, &okButton2});
 
 TextBox ramBox = TextBox(/* position */ Vector2D(100, 10), /* text */ "");
-UIText cycleTimeText = UIText( Vector2D(60, 30), "");
+UIText cycleTimeText = UIText(Vector2D(0, 36), "");
+UIText cycleFrequencyText = UIText( Vector2D(60, 30), "");
 TextBox windowName = TextBox(Vector2D( 20, 10),"2nd Window");
 UIText sleepTestText = UIText(Vector2D(0,42), "");
 UIText sleepDerivationText = UIText(Vector2D(0,48), "");
 
-List<UIElement*> secondWindowElements = List<UIElement*>(10, (UIElement*[]){&sleepDerivationText, &sleepTestText, &windowName,&ramBox, &cycleTimeText, &counter, &backButton2, &upButton2, &downButton2, &okButton2});
+
+List<UIElement*> secondWindowElements = List<UIElement*>(11, (UIElement*[]){&sleepDerivationText, &sleepTestText, &windowName,&ramBox, &cycleTimeText, &cycleFrequencyText, &counter, &backButton2, &upButton2, &downButton2, &okButton2});
 
 Window secondWindow = Window(secondUIButtons, secondWindowElements);
 
@@ -226,11 +229,9 @@ void setup() {
 
   //add custom threads
   os.AddThread(&systemInfoThread);
-  os.AddThread(&testThread);
+  os.AddThread(&sleepTestThread);
 }
 
-
-unsigned long sleepTime;
 
 void loop() {
   // put your main code here, to run repeatedly:
@@ -254,27 +255,28 @@ void loop() {
     ramBox.uiText.text = mem_text_buff;
 
     //measure the cycle frequency in Hz and display it
-    char time_text_buff[15];
-    dtostrf(systemInfoThread.GetCycleFrequency(), 4, 2, time_text_buff);
-    strcat(time_text_buff, "Hz");
+    char frequency_text_buff[15];
+    dtostrf(systemInfoThread.GetCycleFrequency(), 4, 2, frequency_text_buff);
+    strcat(frequency_text_buff, "Hz");
+    cycleFrequencyText.text = frequency_text_buff;
+
+    char time_text_buff[20];
+    sprintf(time_text_buff, "CycleTime: %dms", systemInfoThread.GetCycleTime()/1000);
     cycleTimeText.text = time_text_buff;
 
 
     /*
       test sleeping accuracy
     */
-    if(!testThread.isSleeping())
-    {
-      char sleep_buff[25];
-      sprintf(sleep_buff, "Slept for %dms\nDerivation: %dms", sleepTime);
-      sleepTestText.text = sleep_buff;
-      char der_buff[25];
-      sprintf(der_buff,"Delta: %dms", millis() - testThread.sleepEndTime);
-      sleepDerivationText.text = der_buff;
-      //generate random sleep time in ms
-      sleepTime = random(500,5000);
-      testThread.Sleep(sleepTime);
-    }
+    //print out sleep delta
+    char sleep_buff[25];
+    sprintf(sleep_buff, "Sleep delta: %ums", sleepTestThread.GetDelta());
+    sleepTestText.text = sleep_buff;
+
+    //print out sleep delta percentage
+    char der_buff[25];
+    sprintf(der_buff,"Delta perc: %d%%", sleepTestThread.GetDeltaPercentage());
+    sleepDerivationText.text = der_buff;
 
 
 
