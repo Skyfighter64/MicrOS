@@ -93,7 +93,7 @@ void MicrOS::Run()
 */
 int MicrOS::AddThread(Thread * threadPtr)
 {
-  //check if the thread is already inside the vector
+  //check if the thread is already inside the list
   if(threads.contains(threadPtr))
   {
     //this thread already is registerad
@@ -137,6 +137,8 @@ void MicrOS::UpdateSleep(Thread* thread)
   {
     //wake the tread up from sleep
     thread->Continue();
+    //run the thread
+    thread->Run();
   }
 }
 
