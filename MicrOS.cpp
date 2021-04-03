@@ -130,15 +130,15 @@ int MicrOS::RemoveThread(Thread * threadPtr)
     return 0;
 }
 
-
+/*
+  function updating the sleep of the given thread if sleeping
+*/
 void MicrOS::UpdateSleep(Thread* thread)
 {
   if(thread->remainingSleepTime() <= 0)
   {
     //wake the tread up from sleep
     thread->Continue();
-    //run the thread
-    thread->Run();
   }
 }
 
