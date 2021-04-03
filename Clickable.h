@@ -16,10 +16,10 @@ public:
   void (* OnClick)() = 0;
 
   /*
-    The ID specifies, which Hardware Button(s) this clickable corresponds to
+    The inputID specifies which Hardware Button(s) this clickable corresponds to.
     (Note: multiple buttons can have the same ID)
   */
-  uint8_t ID;
+  uint8_t inputID;
 
   /*
     a boolean flag saving the current state of the clickable.
@@ -30,8 +30,9 @@ public:
 
   /*
     default constructor
+    TODO: document args
   */
-  Clickable(uint8_t _ID, void (* _OnClick)()) : ID(_ID), OnClick(_OnClick), state(false)
+  Clickable(uint8_t _inputID, void (* _OnClick)()) : inputID(_inputID), OnClick(_OnClick), state(false)
   {
 
   }

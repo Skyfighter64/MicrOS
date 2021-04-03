@@ -71,10 +71,10 @@ SystemInfoThread systemInfoThread = SystemInfoThread();
   Main window design elements
 */
 
-TextButton backButton = TextButton( Vector2D(0,50), "<", /*ID*/ 3, &BackClick);
-TextButton upButton = TextButton( Vector2D(32,50), "^", /*ID*/ 2, &UpClick);
-TextButton downButton = TextButton( Vector2D(64,50), "v", /*ID*/ 6, &DownClick);
-TextButton okButton = TextButton( Vector2D(96,50), ">", /*ID*/ 5, &RightClick);
+TextButton backButton = TextButton( Vector2D(0,50), "<", /*input ID*/ 3, &BackClick);
+TextButton upButton = TextButton( Vector2D(32,50), "^", /*input ID*/ 2, &UpClick);
+TextButton downButton = TextButton( Vector2D(64,50), "v", /*input ID*/ 6, &DownClick);
+TextButton okButton = TextButton( Vector2D(96,50), ">", /*input ID*/ 5, &RightClick);
 List<Clickable*> windowButtons = List<Clickable*>(4, (Clickable*[]){&backButton, &upButton, &downButton, &okButton});
 
 /*
@@ -182,8 +182,6 @@ void setup() {
 
   #ifdef DEBUG
   Serial.begin(9600);
-  Serial.print(F("Free memory:"));
-  Serial.println(freeMemory());
 
   Serial.println(F("Size of:"));
   Serial.print(F("InputManager: "));
@@ -216,6 +214,8 @@ void setup() {
   Serial.println(sizeof(ButtonDriver));
   Serial.print(F("SystemInfoThread: "));
   Serial.println(sizeof(SystemInfoThread));
+  Serial.print(F("SleepTestThread: "));
+  Serial.println(sizeof(SleepTestThread));
   Serial.print(F("List<Thread*>: "));
   Serial.println(sizeof(List<Thread*>));
   #endif
@@ -260,7 +260,7 @@ void loop() {
     strcat(frequency_text_buff, "Hz");
     cycleFrequencyText.text = frequency_text_buff;
 
-    char time_text_buff[20];
+    char time_text_buff[23];
     sprintf(time_text_buff, "CycleTime: %dms", systemInfoThread.GetCycleTime()/1000);
     cycleTimeText.text = time_text_buff;
 
@@ -269,14 +269,14 @@ void loop() {
       test sleeping accuracy
     */
     //print out sleep delta
-    char sleep_buff[25];
-    sprintf(sleep_buff, "Sleep delta: %ums", sleepTestThread.GetDelta());
+    char sleep_buff[20];
+    sprintf(sleep_buff, "delta: %ums", sleepTestThread.GetDelta());
     sleepTestText.text = sleep_buff;
 
     //print out sleep delta percentage
-    char der_buff[25];
-    sprintf(der_buff,"Delta perc: %d%%", sleepTestThread.GetDeltaPercentage());
-    sleepDerivationText.text = der_buff;
+//    char der_buff[15];
+//    sprintf(der_buff,"perc: %d%%", sleepTestThread.GetDeltaPercentage());
+//    sleepDerivationText.text = der_buff;
 
 
 

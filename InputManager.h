@@ -26,7 +26,7 @@ public:
         All clickables of the currently active window with this ID
         will be executed
   */
-  void ClickEvent(uint8_t _ID);
+  void ClickEvent(uint8_t _inputID);
 
 
   /*
@@ -37,7 +37,7 @@ public:
       All UIButtons of the currently active window will be updated to
       the given state.
   */
-  void SetState(uint8_t _ID, bool _state);
+  void SetState(uint8_t _inputID, bool _state);
 
 private:
   // pointer to the windowManager of the OS to get

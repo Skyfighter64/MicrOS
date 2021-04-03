@@ -6,7 +6,7 @@
 /*
   default constructor
 */
-TextButton::TextButton(Vector2D _position, Vector2D _size, char * _text, uint8_t _ID, void (* _OnClick)()): UIButton(_position, _size, _ID, _OnClick), textBox(TextBox(_position, _size, _text))
+TextButton::TextButton(Vector2D _position, Vector2D _size, char * _text, uint8_t _inputID, void (* _OnClick)()): UIButton(_position, _size, _inputID, _OnClick), textBox(TextBox(_position, _size, _text))
 {
 
 }
@@ -14,7 +14,7 @@ TextButton::TextButton(Vector2D _position, Vector2D _size, char * _text, uint8_t
 /*
   default constructor with font selection
 */
-TextButton::TextButton(Vector2D _position, Vector2D _size, char * _text, uint8_t _ID, const uint8_t * _font, void (* _OnClick)()): UIButton(_position, _size, _ID, _OnClick), textBox(TextBox(_position, _size, _font, _text))
+TextButton::TextButton(Vector2D _position, Vector2D _size, char * _text, uint8_t _inputID, const uint8_t * _font, void (* _OnClick)()): UIButton(_position, _size, _inputID, _OnClick), textBox(TextBox(_position, _size, _font, _text))
 {
 
 }
@@ -22,7 +22,7 @@ TextButton::TextButton(Vector2D _position, Vector2D _size, char * _text, uint8_t
 /*
   Constructor for an automatically sized button depending on text
 */
-TextButton::TextButton( Vector2D _position, char * _text, uint8_t _ID, void (* _OnClick)()): UIButton(_position, Vector2D(), _ID, _OnClick), textBox(TextBox(_position, _text))
+TextButton::TextButton( Vector2D _position, char * _text, uint8_t _inputID, void (* _OnClick)()): UIButton(_position, Vector2D(), _inputID, _OnClick), textBox(TextBox(_position, _text))
 {
 
 }
@@ -30,7 +30,7 @@ TextButton::TextButton( Vector2D _position, char * _text, uint8_t _ID, void (* _
 /*
   Constructor for an automatically sized button depending on text with font selection
 */
-TextButton::TextButton( Vector2D _position, char * _text, uint8_t _ID, const uint8_t * _font, void (* _OnClick)()): UIButton(_position, Vector2D(), _ID, _OnClick), textBox(TextBox(_position, _font, _text))
+TextButton::TextButton( Vector2D _position, char * _text, uint8_t _inputID, const uint8_t * _font, void (* _OnClick)()): UIButton(_position, Vector2D(), _inputID, _OnClick), textBox(TextBox(_position, _font, _text))
 {
 
 }
