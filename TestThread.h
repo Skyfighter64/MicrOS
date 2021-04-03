@@ -10,15 +10,11 @@ class TestThread : public Thread
 {
   public:
     unsigned long sleepEndTime;
-    TestThread(char * _name)
-    {
-      name = _name;
-    }
     void Run()
     {
       #ifdef DEBUG
       Serial.print(F("Running test thread: "));
-      Serial.println(name);
+      //Serial.println(name);
       #endif
     }
     void Initialize()

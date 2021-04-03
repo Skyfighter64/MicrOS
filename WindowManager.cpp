@@ -5,7 +5,7 @@
 
 WindowManager::WindowManager(U8G2 * _display) : display(_display), activeWindow(nullptr)
 {
-  name = "WindowManager";
+
 }
 
 void WindowManager::Initialize()

@@ -15,8 +15,6 @@ class SystemInfoThread : public Thread
 {
 public:
 
-  //default constructor
-  SystemInfoThread();
   /*
     function returning the amount of Memory left for dynamic allocation
     Credit to: https://github.com/mpflaga/Arduino-MemoryFree

@@ -23,9 +23,6 @@
 class Thread
 {
   public:
-    //the name of this thread, May not be unique
-    char * name;
-
     virtual void Initialize() = 0;
     virtual void Run() = 0;
     void Sleep(unsigned long ms);

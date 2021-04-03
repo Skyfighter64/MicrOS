@@ -3,8 +3,6 @@
 
 ButtonDriver::ButtonDriver(InputManager * _inputManagerPtr, uint8_t * _pins, uint8_t _pins_length) : inputManagerPtr(_inputManagerPtr)
 {
-  //set the name of the thread
-  name = "ButtonDriver";
   //initialize the list
   pushButtons = List<PushButton>();
   for(uint8_t i = 0; i < _pins_length; i++)

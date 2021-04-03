@@ -9,11 +9,6 @@ extern char *__brkval;
 #endif  // __arm__
 
 
-SystemInfoThread::SystemInfoThread()
-{
-  name = "SystemInfo";
-}
-
 
 
 int SystemInfoThread::GetFreeMemory()

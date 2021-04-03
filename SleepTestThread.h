@@ -4,7 +4,7 @@
 #include "Thread.h"
 #include <Arduino.h>
 
-#define SLEEP_TIME 1000
+#define SLEEP_TIME 500 //in ms
 
 /*
   Thread for measuring the acuraccy of thread sleeping
@@ -15,12 +15,14 @@ class SleepTestThread : public Thread
 public:
   void Initialize()
   {
-    //do nothing
+    pinMode(LED_BUILTIN, OUTPUT);
   }
   void Run()
   {
     sleepDelta = millis() - sleepEndTime;
-    //sleep this thread for 10s
+    //blink the builtin led
+    digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
+    //sleep this thread for SLEEP_TIME
     Sleep(SLEEP_TIME);
   }
 
