@@ -16,9 +16,13 @@
 #include "WindowManager.h"
 #include "Clickable.h"
 #include "List.h"
-#include "ButtonDriver.h"
-#include "SystemInfoThread.h"
 
+//input drivers
+#include "ButtonDriver.h"
+#include "IrRemoteDriver.h"
+
+//custom threads
+#include "SystemInfoThread.h"
 #include "SleepTestThread.h"
 
 //#define DEBUG
@@ -60,7 +64,7 @@ MicrOS os(&windowManager, &inputManager);
 */
 
 ButtonDriver buttonDriver = ButtonDriver(&inputManager, /*button pins*/(uint8_t[]){2, 3, 5, 6}, 4);
-
+IrRemoteDriver irDriver = IrRemoteDriver(&inputManager);
 /*
   custom threads
 */
@@ -225,6 +229,7 @@ void setup() {
   os.Start();
   //add the button driver thread
   os.AddThread(&buttonDriver);
+  os.AddThread(&irDriver);
   os.GetWindowManager()->SetActiveWindow(&secondWindow);
 
   //add custom threads
