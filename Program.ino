@@ -19,7 +19,7 @@
 
 //input drivers
 #include "ButtonDriver.h"
-#include "IrRemoteDriver.h"
+#include "IRNecDriver.h"
 
 //custom threads
 #include "SystemInfoThread.h"
@@ -63,8 +63,8 @@ MicrOS os(&windowManager, &inputManager);
   drivers for input
 */
 
-ButtonDriver buttonDriver = ButtonDriver(&inputManager, /*button pins*/(uint8_t[]){2, 3, 5, 6}, 4);
-IrRemoteDriver irDriver = IrRemoteDriver(&inputManager);
+ButtonDriver buttonDriver = ButtonDriver(&inputManager, /*button pins*/(uint8_t[]){4, 3, 5, 6}, 4);
+IRNecDriver irDriver = IRNecDriver(&inputManager);
 /*
   custom threads
 */
@@ -76,7 +76,7 @@ SystemInfoThread systemInfoThread = SystemInfoThread();
 */
 
 TextButton backButton = TextButton( Vector2D(0,50), "<", /*input ID*/ 3, &BackClick);
-TextButton upButton = TextButton( Vector2D(32,50), "^", /*input ID*/ 2, &UpClick);
+TextButton upButton = TextButton( Vector2D(32,50), "^", /*input ID*/ 4, &UpClick);
 TextButton downButton = TextButton( Vector2D(64,50), "v", /*input ID*/ 6, &DownClick);
 TextButton okButton = TextButton( Vector2D(96,50), ">", /*input ID*/ 5, &RightClick);
 List<Clickable*> windowButtons = List<Clickable*>(4, (Clickable*[]){&backButton, &upButton, &downButton, &okButton});
@@ -88,9 +88,9 @@ List<Clickable*> windowButtons = List<Clickable*>(4, (Clickable*[]){&backButton,
 
 
 
-TextBox menuItem0 =  TextBox(/* position */ Vector2D(0, 16), /* font */ u8g2_font_open_iconic_app_2x_t, /* text */ "\x40");
-TextBox menuItem1 =  TextBox(/* position */ Vector2D(40, 16), /* font */ u8g2_font_open_iconic_app_2x_t, /* text */ "\x41");
-TextBox menuItem2 =  TextBox(/* position */ Vector2D(80, 16), /* font */ u8g2_font_open_iconic_app_2x_t, /* text */ "\x42");
+//TextBox menuItem0 =  TextBox(/* position */ Vector2D(0, 16), /* font */ u8g2_font_open_iconic_app_2x_t, /* text */ "\x40");
+//TextBox menuItem1 =  TextBox(/* position */ Vector2D(40, 16), /* font */ u8g2_font_open_iconic_app_2x_t, /* text */ "\x41");
+//TextBox menuItem2 =  TextBox(/* position */ Vector2D(80, 16), /* font */ u8g2_font_open_iconic_app_2x_t, /* text */ "\x42");
 //TextBox menuItem4 =  TextBox(/* position */ Vector2D(0, 32), /* font */ u8g2_font_open_iconic_app_2x_t, /* text */ "\x43");
 //TextBox menuItem5 =  TextBox(/* position */ Vector2D(40, 32), /* font */ u8g2_font_open_iconic_app_2x_t, /* text */ "\x44");
 //TextBox menuItem6 =  TextBox(/* position */ Vector2D(80, 32), /* font */ u8g2_font_open_iconic_app_2x_t, /* text */ "\x45");
@@ -98,7 +98,7 @@ TextBox menuItem2 =  TextBox(/* position */ Vector2D(80, 16), /* font */ u8g2_fo
 
 
 UIText counter = UIText(/* position */ Vector2D(10, 10), /* text */ "");
-List<UIElement*> windowElements = List<UIElement*>(8, (UIElement*[]) { &counter, &menuItem0, &menuItem1, &menuItem2, &backButton, &upButton, &downButton, &okButton});
+List<UIElement*> windowElements = List<UIElement*>(5, (UIElement*[]) { &counter, /*&menuItem0, &menuItem1, &menuItem2,*/ &backButton, &upButton, &downButton, &okButton});
 Window mainWindow = Window(windowButtons, windowElements);
 
 /*
@@ -112,7 +112,7 @@ void BackClick2()
 }
 
 TextButton backButton2 = TextButton( Vector2D(0,50), "back", /*pin*/ 3, &BackClick2);
-TextButton upButton2 = TextButton( Vector2D(32,50), "up", /*pin*/ 2, nullptr);
+TextButton upButton2 = TextButton( Vector2D(32,50), "up", /*pin*/ 4, nullptr);
 TextButton downButton2 = TextButton( Vector2D(64,50), "down", /*pin*/ 6, &DownClick);
 TextButton okButton2 = TextButton( Vector2D(96,50), "OK", /*pin*/ 5, nullptr);
 //TODO: adjust to new InputManager
