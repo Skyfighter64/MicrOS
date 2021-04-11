@@ -20,14 +20,35 @@
   https://github.com/NicoHood/IRLremote#setup-receiving
 
   InputIDs used by this driver:
-  TODO
+  +------------------+------------+----------+
+  | IR Remote Button | IR Command | Input ID |
+  +------------------+------------+----------+
+  | up               | 0x18       |        4 |
+  | down             | 0x52       |        6 |
+  | left             | 0x8        |        3 |
+  | right            | 0x5A       |        5 |
+  | ok               | 0x1C       |       27 |
+  | *                | 0x16       |       28 |
+  | #                | 0xD        |       29 |
+  | 0                | 0x19       |       30 |
+  | 1                | 0x45       |       31 |
+  | 2                | 0x46       |       32 |
+  | 3                | 0x47       |       33 |
+  | 4                | 0x44       |       34 |
+  | 5                | 0x40       |       35 |
+  | 6                | 0x43       |       36 |
+  | 7                | 0x7        |       37 |
+  | 8                | 0x15       |       38 |
+  | 9                | 0x9        |       39 |
+  +------------------+------------+----------+
+
 
   To customize the InputIDs and their corrensponding IR codes,
   edit GetID(...) in IRNecDriver.cpp
 */
 
 /*
-  set the pin of the IR receiver
+  The pin at which the IR receiver is connected
   Note: If you want to use any other pin than pin 2 or 3, you
   have to add the PinChangeInterrupt library as explained above.
 */
@@ -61,6 +82,7 @@ protected:
   CNec irlRemote;
   //save the last command
   Nec_command_t lastCommand;
+
   /*
     function reading data from the IR sensor and
     executing a ClickEvent for the received signal if needed
@@ -83,6 +105,10 @@ protected:
     @return: true, if the time since the last ir signal is >= the TIME_OUT value, else false
   */
   bool CheckTimeOut();
+
+  /*
+    function resetting the pressed state for the lastCommand
+  */
   void ResetPressedState();
   /*
     function mapping IR signals to Input IDs

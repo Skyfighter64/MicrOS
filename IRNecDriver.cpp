@@ -91,6 +91,7 @@ uint8_t IRNecDriver::GetID(Nec_command_t command)
   //map the IR commands to Input IDs
   switch (command)
    {
+     /* navigation buttons */
     case /* up */ 0x18:
       return 4;
     case /* down */ 0x52:
@@ -99,6 +100,35 @@ uint8_t IRNecDriver::GetID(Nec_command_t command)
       return 3;
     case /* right */ 0x5A:
       return 5;
+    case /* OK */ 0x1C:
+      return 27;
+
+      /* number block */
+    case /* * */ 0x16:
+      return 28;
+    case /* # */ 0xD:
+      return 29;
+    case /* 0 */ 0x19:
+      return 30;
+    case /* 1 */ 0x45:
+      return 31;
+    case /* 2 */ 0x46:
+      return 32;
+    case /* 3 */ 0x47:
+      return 33;
+    case /* 4 */ 0x44:
+      return 34;
+    case /* 5 */ 0x40:
+      return 35;
+    case /* 6 */ 0x43:
+      return 36;
+    case /* 7 */ 0x7:
+      return 37;
+    case /* 8 */ 0x15:
+      return 38;
+    case /* 9 */ 0x9:
+      return 39;
+
     default:
       return 255;
   }
