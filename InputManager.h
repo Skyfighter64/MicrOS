@@ -8,6 +8,37 @@
 #include "UIButton.h"
 
 
+/*
+  A class for managing Inputs from all kinds of input drivers.
+
+  The InputManager is a core part of this operating system. It provides
+  a "ClickEvent()" and a "SetState()" function for input drivers to call.
+
+    | Input drivers are threads which can detect hardware inputs.
+    | Examples:
+    |   ButtonDriver : An input driver which detects inputs of hardware buttons connected
+    |      to the pins of the microcontroller
+    |   IRNecDriver : An input driver which reads inputs from infrared remotes
+
+  When a driver detects an input (eg. a button press), it calls the "ClickEvent()"
+  function of the Input Manager and passes an "Input ID" as an argument.
+
+    | Input IDs are numbers from 0 to 255 which link a hardware click to different
+    | OnClick() - functions depending on which Window is shown on the display.
+    |
+    | They are statically set inside each input driver but can be changed to fit
+    | your needs
+
+  The InputManager asks the WindowManager for the currently active window and
+  retrieves its clickable objects.
+
+    | Clickables are Objects with an Input ID and a pointer to an OnClick() function.
+
+  It then loops trough all clickables, finds the ones with a matching Input ID
+  as the one received by the driver, and executes the "OnClick()" function each of them.
+
+
+*/
 class InputManager
 {
 public:
