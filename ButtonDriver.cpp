@@ -48,9 +48,13 @@ void ButtonDriver::UpdateButton(PushButton * buttonPtr)
   #endif
   //read in the state of the physical button
   buttonPtr->update();
-  //update the state of the button
-  inputManagerPtr->SetState(GetID(buttonPtr), buttonPtr->isPressed());
-  //execute onClick events if the button was released
+
+  //update the state of the button if the hardware state changed
+  if(buttonPtr->changed())
+  {
+    inputManagerPtr->SetState(GetID(buttonPtr), buttonPtr->isPressed());
+  }
+  //execute onClick events if the button gets released
   if(buttonPtr->fell())
   {
     #ifdef DEBUG

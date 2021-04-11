@@ -14,8 +14,8 @@
 
   Note: pinMode(..., INPUT) gets set automatically (by Bounce2).
 
-  Used IDs:
-  The IDs for the buttons are the same as the number of the pins at which they
+  Used Input IDs:
+  The Input IDs for the buttons are the same as the number of the pins at which they
   are connected to the microcontroller.
 
   Therefore, this class may use all IDs from 0 up to the highest digital
@@ -23,7 +23,7 @@
   Which numbers are actually used depends on the _pins array given to the
   constructor.
 
-  This behaviour can be changed by editing ButtonDriver::GetPin() in ButtonDriver.cpp
+  The used Input IDs can be changed by editing ButtonDriver::GetID() in ButtonDriver.cpp
 
 */
 
