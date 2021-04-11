@@ -5,6 +5,8 @@
 #include "Thread.h"
 #include "InputManager.h"
 #include <IRLremote.h>
+
+
 /*
   Driver for IR remotes with NEC encoding using the IRLremote library
   https://github.com/NicoHood/IRLremote
@@ -31,6 +33,17 @@
 */
 #define RECEIVER_PIN 2
 
+/*
+  Set the reset timeout in us for the ir remote.
+  If no IR signal was received for this time or longer,
+  the button state of the last pressed button gets reset.
+
+  Default: 108ms (The time in between two repeat signals according to the NEC protocol)
+*/
+#define TIME_OUT 108000UL
+
+
+
 class IRNecDriver : public Thread
 {
 public:
@@ -46,11 +59,31 @@ public:
 protected:
   InputManager * inputManagerPtr;
   CNec irlRemote;
+  //save the last command
+  Nec_command_t lastCommand;
   /*
     function reading data from the IR sensor and
     executing a ClickEvent for the received signal if needed
   */
   void ReadIRSensor();
+
+  /*
+    function executing a ClickEvent for the received signal if needed
+  */
+  void LaunchClickEvent(Nec_command_t command);
+
+  /*
+    functions for tracking when a button of the remote gets pressed and held down
+  */
+  void SetPressedState(Nec_data_t& data);
+
+  /*
+    function returning if the TIME_OUT time was exceeded since the last
+    received IR command
+    @return: true, if the time since the last ir signal is >= the TIME_OUT value, else false
+  */
+  bool CheckTimeOut();
+  void ResetPressedState();
   /*
     function mapping IR signals to Input IDs
     @param command: the command received by the IR Receiver

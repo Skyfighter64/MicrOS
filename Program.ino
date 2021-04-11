@@ -98,7 +98,7 @@ List<Clickable*> windowButtons = List<Clickable*>(4, (Clickable*[]){&backButton,
 
 
 UIText counter = UIText(/* position */ Vector2D(10, 10), /* text */ "");
-List<UIElement*> windowElements = List<UIElement*>(5, (UIElement*[]) { &counter, /*&menuItem0, &menuItem1, &menuItem2,*/ &backButton, &upButton, &downButton, &okButton});
+List<UIElement*> windowElements = List<UIElement*>(5, (UIElement*[]) { &counter,/* &menuItem0, &menuItem1, &menuItem2,*/ &backButton, &upButton, &downButton, &okButton});
 Window mainWindow = Window(windowButtons, windowElements);
 
 /*
@@ -285,14 +285,14 @@ void loop() {
 
 
 
-
+/*
     #ifdef DEBUG
     Serial.print(F("Main Loop. i:"));
     Serial.println(i);
     Serial.print(F("Free memory:"));
     Serial.println(systemInfoThread.GetFreeMemory());
     //delay(500);
-    #endif
+    #endif*/
 
   } while ( u8g2.nextPage() );
 
