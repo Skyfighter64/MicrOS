@@ -6,11 +6,10 @@
 #include "Window.h"
 #include "List.h"
 #include <U8g2lib.h>
-/*
- this trhead should handle and draw all windows, track which are active
- and have functions to switch the displayed window
 
- TODO: also add a window which combines multiple windows
+/*
+  This thread handles and draws all windows
+  and provides functions to switch the displayed window
 */
 
 
