@@ -14,7 +14,7 @@
   This driver is interrupt-based, which means an interrupt-pin has
   to be used for the IR-Receiver (Pin 2 or 3 on Arduino Uno/Nano/Pro mini).
 
-  The other pins could also be used, but this would require installation of the
+  The other pins could also be used, but this requires installation of the
   PinChangeInterrupt library.
   More on that here:
   https://github.com/NicoHood/IRLremote#setup-receiving
@@ -42,9 +42,9 @@
   | 9                | 0x9        |       39 |
   +------------------+------------+----------+
 
-
-  To customize the InputIDs and their corrensponding IR codes,
+  To customize the InputIDs and their corrensponding IR commands,
   edit GetID(...) in IRNecDriver.cpp
+
 */
 
 /*
