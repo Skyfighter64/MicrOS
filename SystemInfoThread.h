@@ -24,13 +24,13 @@ public:
   /*
     function returning the cycle time for the last OS cycle in us
     This may return false information if called within the first cycle
-    after waking up from sleep
+    after this thread wakes up from sleep
   */
   unsigned long GetCycleTime();
   /*
     function returning the cycle freqency in Hertz
     This may return false information if called within the first cycle
-    after waking up from sleep
+    after this thread wakes up from sleep
   */
   float GetCycleFrequency();
 
