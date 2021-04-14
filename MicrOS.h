@@ -22,27 +22,30 @@
 class MicrOS
 {
   public:
-    // standard constructor
-    MicrOS(U8G2 * _display, List<PushButton*> _buttons, List<Window*> _windows);
-
+    // default constructor
+    MicrOS(U8G2 * _displayPtr);
+    // default destructor
+    virtual ~MicrOS();
+    //constructor with global windowManager and inputManager
     MicrOS(WindowManager * _windwoManagerPtr, InputManager * _inputManagerPtr);
-    //function starting the OS
+    //function starting the OS, this should be called only once, e.g. in setup()
     void Start();
-    //run function of the OS, this should be the only call inside loop() //TODO: maybe replace with blocking infinite loop and stop() function
+    //run function of the OS, this should be the only call inside loop()
     void Run();
     //functions for adding and removing threads
     int AddThread(Thread * threadPtr);
     int RemoveThread(Thread * threadPtr);
 
-    //getter for special threads
-    WindowManager * GetWindowManager();
-    InputManager * GetInputManager();
+    //getter for core OS components
+    WindowManager * GetWindowManagerPtr();
+    InputManager * GetInputManagerPtr();
 
   protected:
     //a list of all currently running threads
     List<Thread*> threads;
-    //pointer to special threads, null if there are no such threads (typically only before start)
+    //pointer to the window manager thread, null if there are no such threads (typically only before start)
     WindowManager * windowManagerPtr;
+    //pointer to the inputManager
     InputManager * inputManagerPtr;
 
     /*

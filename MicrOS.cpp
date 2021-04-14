@@ -2,20 +2,14 @@
 
 
 
-// standard constructor
 /*
   standard constructor for the OS
-  @param _buttons: a vector containing physical buttons
-  @param _windows: a vector containing all displayable windows
+  @param _displayPtr: a pointer to the display
 */
-MicrOS::MicrOS(U8G2 * _display, List<PushButton*> _buttons, List<Window*> _windows)
+MicrOS::MicrOS(U8G2 * _displayPtr)
 {
   /*
       TODO: delete
-
-
-
-
       This constructor does not work currently
       Accessing UIButton::pin in Inputmanager.cpp does not work because the inputmanager
       gets dynamically allocated below and somehow the UIButton::pin returns undefined values
@@ -28,11 +22,18 @@ MicrOS::MicrOS(U8G2 * _display, List<PushButton*> _buttons, List<Window*> _windo
 
 
   //create a new InputManager and WindowManager based on the given arguments
-  //windowManagerPtr = new WindowManager(_display); /*TODO: check if this needs a delete*/
-  //yes, it does. Add delete at appropriate position
-  //inputManagerPtr = new InputManager(windowManagerPtr);
-
+  windowManagerPtr = new WindowManager(_displayPtr);
+  inputManagerPtr = new InputManager(windowManagerPtr);
 }
+
+//destructor of the default constructor
+MicrOS:~MicrOS()
+{
+  //TODO: check if this is ok with the constructor using predefined (maybe global) pointers
+  delete inputManagerPtr;
+  delete windowManagerPtr;
+}
+
 /*
   constructor for predefined WindowManager and inputManager
 */
@@ -142,14 +143,13 @@ void MicrOS::UpdateSleep(Thread* thread)
   }
 }
 
-//getter for special threads
-WindowManager * MicrOS::GetWindowManager()
+WindowManager * MicrOS::GetWindowManagerPtr()
 {
   //return the pointer to the window manager of this OS
   //Note: this can be a null pointer if this OS has no WindowManager
   return windowManagerPtr;
 }
-InputManager * MicrOS::GetInputManager()
+InputManager * MicrOS::GetInputManagerPtr()
 {
   //return the pointer to the input manager of this OS
   //Note: this can be a null pointer if this OS has no InputManager
