@@ -45,26 +45,18 @@ Create setText function for UIButton, UIText
 
 U8G2_SH1106_128X64_NONAME_1_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 
-/*
-  declaration of the physical buttons
-*/
-
-//manager threads for the OS
-WindowManager windowManager = WindowManager(&u8g2);
-//TODO: adjust to new InputManager
-InputManager inputManager = InputManager(&windowManager);
 
 //os declaration
-MicrOS os(&windowManager, &inputManager);
+MicrOS os(&u8g2);
 
 
 
 /*
-  drivers for input
+  input drivers
 */
 
-ButtonDriver buttonDriver = ButtonDriver(&inputManager, /*button pins*/(uint8_t[]){4, 3, 5, 6}, 4);
-IRNecDriver irDriver = IRNecDriver(&inputManager);
+ButtonDriver buttonDriver = ButtonDriver(os.GetInputManagerPtr(), /*button pins*/(uint8_t[]){4, 3, 5, 6}, 4);
+IRNecDriver irDriver = IRNecDriver(os.GetInputManagerPtr());
 /*
   custom threads
 */
@@ -84,8 +76,6 @@ List<Clickable*> windowButtons = List<Clickable*>(4, (Clickable*[]){&backButton,
 /*
     main window
 */
-
-
 
 
 //TextBox menuItem0 =  TextBox(/* position */ Vector2D(0, 16), /* font */ u8g2_font_open_iconic_app_2x_t, /* text */ "\x40");
@@ -108,7 +98,7 @@ Window mainWindow = Window(windowButtons, windowElements);
 void BackClick2()
 {
   //return to main window
-  os.GetWindowManager()->SetActiveWindow(&mainWindow);
+  os.GetWindowManagerPtr()->SetActiveWindow(&mainWindow);
 }
 
 TextButton backButton2 = TextButton( Vector2D(0,50), "back", /*pin*/ 3, &BackClick2);
@@ -166,15 +156,9 @@ void DownClick()
 void RightClick()
 {
  //i = 100;
- os.GetWindowManager()->SetActiveWindow(&secondWindow);
+ os.GetWindowManagerPtr()->SetActiveWindow(&secondWindow);
 
 }
-
-/*
-  list of all windows
-*/
-// This may not be needed TODO: decide
-//List<Window*> windows = List<Window*>(1, (Window*[]) {&mainWindow});
 
 
 
@@ -230,7 +214,7 @@ void setup() {
   //add the button driver thread
   os.AddThread(&buttonDriver);
   os.AddThread(&irDriver);
-  os.GetWindowManager()->SetActiveWindow(&secondWindow);
+  os.GetWindowManagerPtr()->SetActiveWindow(&secondWindow);
 
   //add custom threads
   os.AddThread(&systemInfoThread);
@@ -246,9 +230,6 @@ void loop() {
     //run one OS cycle
     os.Run();
 
-    /*
-      TODO: check if this can be done cleaner, eg. inside a special thread
-    */
 
     //update the UI
     char i_buff[4];
