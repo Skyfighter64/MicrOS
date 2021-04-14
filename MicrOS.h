@@ -10,15 +10,13 @@
 #include <Arduino.h> // serial debugging
 
 /*
-Micros is the  Operating System
-it should have a list with all threads and run them. It also should keep track of thread sleep times
-And start/stop threads
 
-TODO: rephrase
+  Micros is a simple operating system designed for Arduino,
+  intended for use with small SPI or I2C displays.
+
+  It supports cooperative multitasking and driver-based user-input.
 
 */
-
-
 
 
 class MicrOS
