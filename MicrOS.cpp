@@ -27,7 +27,7 @@ MicrOS::MicrOS(U8G2 * _displayPtr)
 }
 
 //destructor of the default constructor
-MicrOS:~MicrOS()
+MicrOS::~MicrOS()
 {
   //TODO: check if this is ok with the constructor using predefined (maybe global) pointers
   delete inputManagerPtr;
