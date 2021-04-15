@@ -3,7 +3,7 @@
 
 
 
-WindowManager::WindowManager(U8G2 * _display) : display(_display), activeWindow(nullptr)
+WindowManager::WindowManager(U8G2 * _displayPtr) : displayPtr(_displayPtr), activeWindowPtr(nullptr)
 {
 
 }
@@ -19,7 +19,7 @@ void WindowManager::Initialize()
 void WindowManager::Run()
 {
   //check if there are any windows
-  if( activeWindow == nullptr)
+  if(activeWindowPtr == nullptr)
   {
     #ifdef DEBUG
       Serial.println("No Window to display");
@@ -28,18 +28,18 @@ void WindowManager::Run()
   }
 
   //draw the currently active window
-  activeWindow->Draw(display);
+  activeWindowPtr->Draw(displayPtr);
   #ifdef DEBUG
   Serial.println("Drawing windows...");
   #endif
 }
 
 
-void WindowManager::SetActiveWindow(Window * window)
+void WindowManager::SetActiveWindow(Window * windowPtr)
 {
-  activeWindow = window;
+  activeWindowPtr = windowPtr;
 }
 Window * WindowManager::GetActiveWindow()
 {
-  return activeWindow;
+  return activeWindowPtr;
 }

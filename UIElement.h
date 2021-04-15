@@ -17,7 +17,7 @@ public:
   UIElement();
   UIElement(Vector2D _position, Vector2D _size);
   //virtual function for drawing the UI Element
-  virtual void Draw(U8G2 * display) = 0;
+  virtual void Draw(U8G2 * displayPtr) = 0;
 };
 
 #endif

@@ -40,11 +40,11 @@ TextButton::TextButton( Vector2D _position, char * _text, uint8_t _inputID, cons
 /*
   function overwriting UIButton::Draw
 */
-void TextButton::Draw(U8G2 * display)
+void TextButton::Draw(U8G2 * displayPtr)
 {
   //highlight the textBox when the button is pressed
   //using the Clickable::state value
   textBox.highlighted = state;
   //draw the textBox
-  textBox.Draw(display);
+  textBox.Draw(displayPtr);
 }

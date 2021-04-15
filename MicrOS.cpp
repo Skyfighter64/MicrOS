@@ -66,12 +66,12 @@ void MicrOS::Run()
   Serial.println(F("os.Run"));
   #endif
   //run each thread of the thread list
-  Thread** thread = threads.getFirstPtr();
-  while (thread != nullptr)
+  Thread** threadPtr = threads.getFirstPtr();
+  while (threadPtr != nullptr)
   {
-    if(!(*thread)->isSleeping())
+    if(!(*threadPtr)->isSleeping())
     {
-      (*thread)->Run();
+      (*threadPtr)->Run();
       #ifdef DEBUG
       Serial.print(F("Running Thread: "));
       Serial.println((*thread)->name);
@@ -79,9 +79,9 @@ void MicrOS::Run()
     }
     else
     {
-      UpdateSleep((*thread));
+      UpdateSleep((*threadPtr));
     }
-    thread = threads.getNextPtr();
+    threadPtr = threads.getNextPtr();
   }
 }
 
@@ -134,12 +134,12 @@ int MicrOS::RemoveThread(Thread * threadPtr)
 /*
   function updating the sleep of the given thread if sleeping
 */
-void MicrOS::UpdateSleep(Thread* thread)
+void MicrOS::UpdateSleep(Thread* threadPtr)
 {
-  if(thread->remainingSleepTime() <= 0)
+  if(threadPtr->remainingSleepTime() <= 0)
   {
     //wake the tread up from sleep
-    thread->Continue();
+    threadPtr->Continue();
   }
 }
 

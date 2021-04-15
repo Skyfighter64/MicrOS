@@ -6,7 +6,7 @@ Window::Window(List<Clickable*>& _clickables, List<UIElement*>& _uiElements) : c
 
 }
 
-void Window::Draw(U8G2 * display)
+void Window::Draw(U8G2 * displayPtr)
 {
 
   /*
@@ -16,10 +16,10 @@ void Window::Draw(U8G2 * display)
   /*
     Draw all UI elements
   */
-  UIElement ** element = uiElements.getFirstPtr();
-  while(element != nullptr)
+  UIElement ** elementPtr = uiElements.getFirstPtr();
+  while(elementPtr != nullptr)
   {
-      (*element)->Draw(display);
-      element = uiElements.getNextPtr();
+      (*elementPtr)->Draw(displayPtr);
+      elementPtr = uiElements.getNextPtr();
   }
 }

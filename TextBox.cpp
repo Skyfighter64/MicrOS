@@ -39,40 +39,40 @@ TextBox::TextBox(Vector2D _position, Vector2D _size, const uint8_t * _font, char
 
 
 
-void TextBox::Draw(U8G2 * display)
+void TextBox::Draw(U8G2 * displayPtr)
 {
   //set the font if needed
-  const uint8_t * oldFont = SetFont(uiText.font, display);
+  const uint8_t * oldFont = SetFont(uiText.font, displayPtr);
 
   if(autoscale)
   {
-    size = CalculateBoxSize(display);
+    size = CalculateBoxSize(displayPtr);
   }
 
-  DrawShape(display);
-  DrawContent(display);
+  DrawShape(displayPtr);
+  DrawContent(displayPtr);
 
   //reset the font
-  display->setFont(oldFont);
+  displayPtr->setFont(oldFont);
 }
 
 
 
 
-void TextBox::DrawShape(U8G2 * display)
+void TextBox::DrawShape(U8G2 * displayPtr)
 {
   //set the draw color to the inverted background color
-  display->setDrawColor(1);
+  displayPtr->setDrawColor(1);
 
   if(highlighted)
   {
     //draw a box
-    display->drawRBox(position.x, position.y, size.x, size.y , /* corner radius: */ 1);
+    displayPtr->drawRBox(position.x, position.y, size.x, size.y , /* corner radius: */ 1);
   }
   else
   {
     //draw a rectangle
-    display->drawRFrame(position.x, position.y, size.x, size.y , /* corner radius: */ 1);
+    displayPtr->drawRFrame(position.x, position.y, size.x, size.y , /* corner radius: */ 1);
   }
 }
 
@@ -81,19 +81,19 @@ void TextBox::DrawShape(U8G2 * display)
 /*
   Function drawing the content of the button to the screen
 */
-void TextBox::DrawContent(U8G2 * display)
+void TextBox::DrawContent(U8G2 * displayPtr)
 {
   /*
   TODO: check if this is needed as the color and font mode get set in uiText.Draw()
   */
   //set the font background to transparent
-  display->setFontMode(1);
+  displayPtr->setFontMode(1);
   //set the draw color to the inverted background color
-  display->setDrawColor(2);
+  displayPtr->setDrawColor(2);
 
   //cacluclate the position of the text so it is centered
-  uiText.position = CalculateTextPosition(display);
-  uiText.Draw(display);
+  uiText.position = CalculateTextPosition(displayPtr);
+  uiText.Draw(displayPtr);
 }
 
 
@@ -102,11 +102,11 @@ void TextBox::DrawContent(U8G2 * display)
 /*
   Function calculating the postiton of the text within the button so it is centered
 */
-Vector2D TextBox::CalculateTextPosition(U8G2 * display)
+Vector2D TextBox::CalculateTextPosition(U8G2 * displayPtr)
 {
   //get the height and width of the text using the current font
-  int textHeight = display->getMaxCharHeight();
-  int textWidth = display->getStrWidth(uiText.text);
+  int textHeight = displayPtr->getMaxCharHeight();
+  int textWidth = displayPtr->getStrWidth(uiText.text);
 
   Vector2D result = Vector2D();
   result.x = position.x + ((size.x - textWidth) / 2);
@@ -120,11 +120,11 @@ Vector2D TextBox::CalculateTextPosition(U8G2 * display)
 /*
   Function calculating a size for the button so the text fits
 */
-Vector2D TextBox::CalculateBoxSize(U8G2 * display)
+Vector2D TextBox::CalculateBoxSize(U8G2 * displayPtr)
 {
   //get the height and width of the text using the current font
-  int textHeight = display->getMaxCharHeight() + 4;
-  int textWidth = display->getStrWidth(uiText.text) + 4;
+  int textHeight = displayPtr->getMaxCharHeight() + 4;
+  int textWidth = displayPtr->getStrWidth(uiText.text) + 4;
 
   return Vector2D(textWidth, textHeight);
 }
@@ -135,14 +135,14 @@ Vector2D TextBox::CalculateBoxSize(U8G2 * display)
   @return: the font before applying the given font
     This can be used to reset the font
 */
-uint8_t * TextBox::SetFont(const uint8_t * font, U8G2 * display)
+uint8_t * TextBox::SetFont(const uint8_t * font, U8G2 * displayPtr)
 {
   //get the current font
-  uint8_t * oldFont = display->getU8g2()->font;
+  uint8_t * oldFont = displayPtr->getU8g2()->font;
   //set the font if possible
   if(font != nullptr)
   {
-    display->setFont(font);
+    displayPtr->setFont(font);
   }
   //return the old font
   return oldFont;

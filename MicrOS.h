@@ -52,7 +52,7 @@ class MicrOS
       function updating the remaining sleep time of the given thread
       and waking it up if necesary
     */
-    void UpdateSleep(Thread *);
+    void UpdateSleep(Thread * threadPtr);
 
 };
 

@@ -36,20 +36,20 @@ void UIText::Draw(U8G2* display)
   @return: the font before applying the given font
     This can be used to reset the font
 */
-uint8_t * UIText::SetFont(const uint8_t * font, U8G2 * display)
+uint8_t * UIText::SetFont(const uint8_t * font, U8G2 * displayPtr)
 {
   //save the old font
-  const uint8_t * oldFont = display->getU8g2()->font;
+  const uint8_t * oldFont = displayPtr->getU8g2()->font;
 
   //switch the font if a special font was given
   if(font != nullptr)
   {
-    display->setFont(font);
+    displayPtr->setFont(font);
   }
   //set the font background to transparent
-  display->setFontMode(1);
+  displayPtr->setFontMode(1);
   //set the draw color to the inverted background color
-  display->setDrawColor(2);
+  displayPtr->setDrawColor(2);
 
   return oldFont;
 }

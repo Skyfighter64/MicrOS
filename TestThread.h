@@ -14,7 +14,6 @@ class TestThread : public Thread
     {
       #ifdef DEBUG
       Serial.print(F("Running test thread: "));
-      //Serial.println(name);
       #endif
     }
     void Initialize()

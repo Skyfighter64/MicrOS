@@ -16,8 +16,8 @@
 class WindowManager : public Thread
 {
   public:
-    WindowManager( U8G2 * _display);
-    void SetActiveWindow(Window * window);
+    WindowManager( U8G2 * _displayPtr);
+    void SetActiveWindow(Window * windowPtr);
     Window * GetActiveWindow();
     int GetActiveWindowIndex();
 
@@ -26,10 +26,10 @@ class WindowManager : public Thread
     void Run();
   protected:
     //the display this windowmanager is managing
-    U8G2 * display;
+    U8G2 * displayPtr;
 
     //the currently active window
-    Window* activeWindow;
+    Window* activeWindowPtr;
 };
 
 #endif

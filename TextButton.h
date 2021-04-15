@@ -27,7 +27,8 @@ class TextButton : public UIButton
     void Draw(U8G2 * display);
 
   private:
-    Vector2D CalculateTextPosition(U8G2 * display);
-    Vector2D CalculateButtonSize(U8G2 * display);
+    //TODO: can those be removed? I dont see the use for this
+    Vector2D CalculateTextPosition(U8G2 * displayPtr);
+    Vector2D CalculateButtonSize(U8G2 * displayPtr);
 };
 #endif

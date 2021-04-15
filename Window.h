@@ -47,7 +47,7 @@ public:
   */
   List<Clickable*> clickables;
   List<UIElement*> uiElements;
-  void Draw(U8G2 * display);
+  void Draw(U8G2 * displayPtr);
 
   Window(List<Clickable*>& _clickables, List<UIElement*>& _uiElements);
 
