@@ -1,7 +1,6 @@
 #include "MicrOS.h"
 
 
-
 /*
   default constructor for the OS
   @param _displayPtr: a pointer to the display
@@ -23,24 +22,13 @@ MicrOS::~MicrOS()
 //function starting the OS
 void MicrOS::Start()
 {
-  #ifdef DEBUG
-  Serial.println(F("Starting OS..."));
-  #endif
   //start the OS by adding the WindowManager to the running Threads
   AddThread(windowManagerPtr);
-  #ifdef DEBUG
-  Serial.println(F("Started OS..."));
-  delay(1000);
-  #endif
-
 }
+
 //run function of the OS, this will run all active threads
 void MicrOS::Run()
 {
-
-  #ifdef DEBUG
-  Serial.println(F("os.Run"));
-  #endif
   //run each thread of the thread list
   Thread** threadPtr = threads.getFirstPtr();
   while (threadPtr != nullptr)
@@ -48,10 +36,6 @@ void MicrOS::Run()
     if(!(*threadPtr)->isSleeping())
     {
       (*threadPtr)->Run();
-      #ifdef DEBUG
-      Serial.print(F("Running Thread: "));
-      Serial.println((*thread)->name);
-      #endif
     }
     else
     {
@@ -60,7 +44,6 @@ void MicrOS::Run()
     threadPtr = threads.getNextPtr();
   }
 }
-
 
 /*
   function adding the given thread to the list of active threads
@@ -91,7 +74,6 @@ int MicrOS::AddThread(Thread * threadPtr)
           -1 if the element was not found
 
 */
-
 int MicrOS::RemoveThread(Thread * threadPtr)
 {
     //check if the element was found
@@ -121,12 +103,11 @@ void MicrOS::UpdateSleep(Thread* threadPtr)
 WindowManager * MicrOS::GetWindowManagerPtr()
 {
   //return the pointer to the window manager of this OS
-  //Note: this can be a null pointer if this OS has no WindowManager
   return windowManagerPtr;
 }
+
 InputManager * MicrOS::GetInputManagerPtr()
 {
   //return the pointer to the input manager of this OS
-  //Note: this can be a null pointer if this OS has no InputManager
   return inputManagerPtr;
 }

@@ -42,10 +42,6 @@ void ButtonDriver::Run()
 */
 void ButtonDriver::UpdateButton(PushButton * buttonPtr)
 {
-  #ifdef DEBUG
-  Serial.print("Updated button ");
-  Serial.println(buttonPtr->get_pin());
-  #endif
   //read in the state of the physical button
   buttonPtr->update();
 
@@ -57,10 +53,6 @@ void ButtonDriver::UpdateButton(PushButton * buttonPtr)
   //execute onClick events if the button gets released
   if(buttonPtr->fell())
   {
-    #ifdef DEBUG
-    Serial.print("-- Clicked button ");
-    Serial.println(buttonPtr->get_pin());
-    #endif
     inputManagerPtr->ClickEvent(GetID(buttonPtr));
   }
 }

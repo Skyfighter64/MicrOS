@@ -5,12 +5,7 @@ void InputManager::ClickEvent(uint8_t _inputID)
 {
   //get the clickables of the currently active window
   List<Clickable *> * clickablesPtr = &windowManagerPtr->GetActiveWindow()->clickables;
-
-  #ifdef DEBUG
-  Serial.print(F("InputManager: Clicked: "));
-  Serial.println(_inputID );
-  #endif
-
+  
   //loop trough all clickables and execute OnClick of the ones with
   // a matching ID
   Clickable ** iterator = clickablesPtr->getFirstPtr();

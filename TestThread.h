@@ -12,9 +12,12 @@ class TestThread : public Thread
     unsigned long sleepEndTime;
     void Run()
     {
-      #ifdef DEBUG
-      Serial.print(F("Running test thread: "));
-      #endif
+      //check if serial communication is ready
+      if(Serial)
+      {
+        //output a message
+        Serial.print(F("Running test thread: "));
+      }
     }
     void Initialize()
     {

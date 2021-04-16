@@ -1,5 +1,4 @@
 #include "WindowManager.h"
-#include <Arduino.h>
 
 
 
@@ -21,17 +20,12 @@ void WindowManager::Run()
   //check if there are any windows
   if(activeWindowPtr == nullptr)
   {
-    #ifdef DEBUG
-      Serial.println("No Window to display");
-      #endif
+      //there is no window to display
       return;
   }
 
   //draw the currently active window
   activeWindowPtr->Draw(displayPtr);
-  #ifdef DEBUG
-  Serial.println("Drawing windows...");
-  #endif
 }
 
 
