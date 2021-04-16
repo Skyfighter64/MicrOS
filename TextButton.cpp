@@ -1,6 +1,4 @@
-
 #include "TextButton.h"
-
 
 
 /*
@@ -34,7 +32,6 @@ TextButton::TextButton( Vector2D _position, char * _text, uint8_t _inputID, cons
 {
 
 }
-
 
 
 /*
