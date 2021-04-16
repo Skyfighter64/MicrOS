@@ -40,7 +40,7 @@ public:
   /*
     destructor deleting all nodes of the list
   */
-  virtual ~List()
+  ~List()
   {
     //remove all items from the list by chopping of the head until the
     //list is empty ;)

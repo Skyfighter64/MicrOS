@@ -25,7 +25,7 @@ class MicrOS
     // default constructor
     MicrOS(U8G2 * _displayPtr);
     // default destructor
-    virtual ~MicrOS();
+    ~MicrOS();
     //function starting the OS, this should be called only once, e.g. in setup()
     void Start();
     //run function of the OS, this should be the only call inside loop()
