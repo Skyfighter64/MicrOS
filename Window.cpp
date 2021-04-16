@@ -8,11 +8,6 @@ Window::Window(List<Clickable*>& _clickables, List<UIElement*>& _uiElements) : c
 
 void Window::Draw(U8G2 * displayPtr)
 {
-
-  /*
-    TODO: add the position of this window to all UI elements and buttons for multi window support
-  */
-
   /*
     Draw all UI elements
   */

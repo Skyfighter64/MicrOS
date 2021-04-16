@@ -3,24 +3,11 @@
 
 
 /*
-  standard constructor for the OS
+  default constructor for the OS
   @param _displayPtr: a pointer to the display
 */
 MicrOS::MicrOS(U8G2 * _displayPtr)
 {
-  /*
-      TODO: delete
-      This constructor does not work currently
-      Accessing UIButton::pin in Inputmanager.cpp does not work because the inputmanager
-      gets dynamically allocated below and somehow the UIButton::pin returns undefined values
-      instead of the pin.
-
-      Maybe the pointer gets out of scope or something like that.
-      For now, use the other constructor with globally defined window-, and inputmanager
-
-  */
-
-
   //create a new InputManager and WindowManager based on the given arguments
   windowManagerPtr = new WindowManager(_displayPtr);
   inputManagerPtr = new InputManager(windowManagerPtr);
@@ -29,16 +16,13 @@ MicrOS::MicrOS(U8G2 * _displayPtr)
 //destructor of the default constructor
 MicrOS::~MicrOS()
 {
-  //TODO: check if this is ok with the constructor using predefined (maybe global) pointers
   delete inputManagerPtr;
   delete windowManagerPtr;
 }
 
-
 //function starting the OS
 void MicrOS::Start()
 {
-  //TODO: maybe add a fancy little boot screen
   #ifdef DEBUG
   Serial.println(F("Starting OS..."));
   #endif
@@ -50,8 +34,7 @@ void MicrOS::Start()
   #endif
 
 }
-//run function of the OS, this should be the only call inside loop()
-//TODO: maybe replace with blocking infinite loop and stop() function
+//run function of the OS, this will run all active threads
 void MicrOS::Run()
 {
 
@@ -94,7 +77,6 @@ int MicrOS::AddThread(Thread * threadPtr)
     return -1;
   }
 
-  //TODO: this line caused the arduino to freeze / crash when using vectors
   MicrOS::threads.add(threadPtr);
 
   //initialize thread

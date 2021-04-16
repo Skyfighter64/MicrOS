@@ -27,22 +27,6 @@
 
 //#define DEBUG
 
-
-
-
-/*
-TODO: delete pointers
-https://stackoverflow.com/questions/3919850/conversion-from-myitem-to-non-scalar-type-myitem-requested
-
-This does not need to be done until the broken MicrOS constructor gets fixed
-
-TestThread.h can be removed
-
-Create setText function for UIButton, UIText
-*/
-
-
-
 U8G2_SH1106_128X64_NONAME_1_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 
 
@@ -105,7 +89,6 @@ TextButton backButton2 = TextButton( Vector2D(0,50), "back", /*pin*/ 3, &BackCli
 TextButton upButton2 = TextButton( Vector2D(32,50), "up", /*pin*/ 4, nullptr);
 TextButton downButton2 = TextButton( Vector2D(64,50), "down", /*pin*/ 6, &DownClick);
 TextButton okButton2 = TextButton( Vector2D(96,50), "OK", /*pin*/ 5, nullptr);
-//TODO: adjust to new InputManager
 List<Clickable*> secondUIButtons = List<Clickable*>(4, (Clickable*[]) {&backButton2, &upButton2, &downButton2, &okButton2});
 
 TextBox ramBox = TextBox(/* position */ Vector2D(100, 10), /* text */ "");

@@ -83,14 +83,6 @@ void TextBox::DrawShape(U8G2 * displayPtr)
 */
 void TextBox::DrawContent(U8G2 * displayPtr)
 {
-  /*
-  TODO: check if this is needed as the color and font mode get set in uiText.Draw()
-  */
-  //set the font background to transparent
-  displayPtr->setFontMode(1);
-  //set the draw color to the inverted background color
-  displayPtr->setDrawColor(2);
-
   //cacluclate the position of the text so it is centered
   uiText.position = CalculateTextPosition(displayPtr);
   uiText.Draw(displayPtr);

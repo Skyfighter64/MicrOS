@@ -5,9 +5,6 @@
 /*
  Class for representing a vector in 2D space
 */
-/*
-  TODO: add comparison operations
-*/
 
 class Vector2D
 {
