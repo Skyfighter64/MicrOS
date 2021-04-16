@@ -26,7 +26,7 @@ public:
 
   /*
     constructor for initializing the list with the given values
-    Note: A initializer-list would be better but the Arduino Environment has no support for cpp stl
+    Note: An initializer-list would be better but the Arduino Environment has no support for cpp stl
     (Third party versions need too much Memory or are buggy)
   */
   List(size_t size, T items[])
@@ -35,6 +35,24 @@ public:
       {
         add(items[i]);
       }
+  }
+
+  /*
+    destructor deleting all nodes of the list
+  */
+  virtual ~List()
+  {
+    //remove all items from the list by chopping of the head until the
+    //list is empty ;)
+    while(root != nullptr)
+    {
+      //get the next node after the root node
+      ListNode * nextNode = root->next;
+      //delete the root element
+      delete root;
+      //set the next element to the root
+      root = nextNode;
+    }
   }
 
   // add a new element to the front of the list (bc. its easier then adding it to the back)
