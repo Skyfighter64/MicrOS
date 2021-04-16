@@ -1,7 +1,7 @@
 #ifndef SYSTEM_INFO_THREAD_H
 #define SYSTEM_INFO_THREAD_H
 
-#include <Arduino.h>
+#include <Arduino.h> //for micros()
 #include "Thread.h"
 
 /*

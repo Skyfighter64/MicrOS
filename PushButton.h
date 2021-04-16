@@ -1,7 +1,7 @@
 #ifndef PUSHBUTTON_H
 #define PUSHBUTTON_H
 #include <Bounce2.h> //for debouncing buttons
-#include <Arduino.h>
+#include <Arduino.h> //for uint8_t
 
 /*
   function wrapping the Bounce2 Button class and adding a getter for the physical pin number

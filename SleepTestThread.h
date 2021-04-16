@@ -1,8 +1,8 @@
 #ifndef SLEEP_TEST_THREAD_H
 #define SLEEP_TEST_THREAD_H
 
+#include <Arduino.h> //for millis()
 #include "Thread.h"
-#include <Arduino.h>
 
 #define SLEEP_TIME 500 //in ms
 

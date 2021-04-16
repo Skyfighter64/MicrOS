@@ -1,11 +1,10 @@
 #ifndef WINDOWMANAGER_H
 #define WINDOWMANAGER_H
 
-#include <Arduino.h>
+#include <U8g2lib.h> //display driver
 #include "Thread.h"
 #include "Window.h"
 #include "List.h"
-#include <U8g2lib.h>
 
 /*
   This thread handles and draws all windows
