@@ -34,13 +34,6 @@ MicrOS::~MicrOS()
   delete windowManagerPtr;
 }
 
-/*
-  constructor for predefined WindowManager and inputManager
-*/
-MicrOS::MicrOS( WindowManager *_windowManagerPtr, InputManager * _inputManagerPtr) : windowManagerPtr(_windowManagerPtr), inputManagerPtr(_inputManagerPtr)
-{
-
-}
 
 //function starting the OS
 void MicrOS::Start()
