@@ -35,7 +35,7 @@ TextButton::TextButton( Vector2D _position, char * _text, uint8_t _inputID, cons
 
 
 /*
-  function overwriting UIButton::Draw
+  function overwriting TextBox::Draw
 */
 void TextButton::Draw(U8G2 * displayPtr)
 {

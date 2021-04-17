@@ -25,7 +25,7 @@
 #include "SystemInfoThread.h"
 #include "SleepTestThread.h"
 
-//#define DEBUG
+#define DEBUG
 
 U8G2_SH1106_128X64_NONAME_1_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 
@@ -51,11 +51,11 @@ SystemInfoThread systemInfoThread = SystemInfoThread();
   Main window design elements
 */
 
-TextButton backButton = TextButton( Vector2D(0,50), "<", /*input ID*/ 3, &BackClick);
-TextButton upButton = TextButton( Vector2D(32,50), "^", /*input ID*/ 4, &UpClick);
-TextButton downButton = TextButton( Vector2D(64,50), "v", /*input ID*/ 6, &DownClick);
+//TextButton backButton = TextButton( Vector2D(0,50), "<", /*input ID*/ 3, &BackClick);
+//TextButton upButton = TextButton( Vector2D(32,50), "^", /*input ID*/ 4, &UpClick);
+//TextButton downButton = TextButton( Vector2D(64,50), "v", /*input ID*/ 6, &DownClick);
 TextButton okButton = TextButton( Vector2D(96,50), ">", /*input ID*/ 5, &RightClick);
-List<Clickable*> windowButtons = List<Clickable*>(4, (Clickable*[]){&backButton, &upButton, &downButton, &okButton});
+List<Clickable*> windowButtons = List<Clickable*>(1, (Clickable*[]){/*&backButton, &upButton, &downButton,*/ &okButton});
 
 /*
     main window
@@ -72,7 +72,7 @@ List<Clickable*> windowButtons = List<Clickable*>(4, (Clickable*[]){&backButton,
 
 
 UIText counter = UIText(/* position */ Vector2D(10, 10), /* text */ "");
-List<UIElement*> windowElements = List<UIElement*>(5, (UIElement*[]) { &counter,/* &menuItem0, &menuItem1, &menuItem2,*/ &backButton, &upButton, &downButton, &okButton});
+List<UIElement*> windowElements = List<UIElement*>(2, (UIElement*[]) { &counter,/* &menuItem0, &menuItem1, &menuItem2, &backButton, &upButton, &downButton,*/ &okButton});
 Window mainWindow = Window(windowButtons, windowElements);
 
 /*
@@ -89,7 +89,7 @@ TextButton backButton2 = TextButton( Vector2D(0,50), "back", /*pin*/ 3, &BackCli
 TextButton upButton2 = TextButton( Vector2D(32,50), "up", /*pin*/ 4, nullptr);
 TextButton downButton2 = TextButton( Vector2D(64,50), "down", /*pin*/ 6, &DownClick);
 TextButton okButton2 = TextButton( Vector2D(96,50), "OK", /*pin*/ 5, nullptr);
-List<Clickable*> secondUIButtons = List<Clickable*>(4, (Clickable*[]) {&backButton2, &upButton2, &downButton2, &okButton2});
+List<Clickable*> secondClickables = List<Clickable*>(4, (Clickable*[]) {&backButton2, &upButton2, &downButton2, &okButton2});
 
 TextBox ramBox = TextBox(/* position */ Vector2D(100, 10), /* text */ "");
 UIText cycleTimeText = UIText(Vector2D(0, 36), "");
@@ -101,7 +101,7 @@ UIText sleepDerivationText = UIText(Vector2D(0,48), "");
 
 List<UIElement*> secondWindowElements = List<UIElement*>(11, (UIElement*[]){&sleepDerivationText, &sleepTestText, &windowName,&ramBox, &cycleTimeText, &cycleFrequencyText, &counter, &backButton2, &upButton2, &downButton2, &okButton2});
 
-Window secondWindow = Window(secondUIButtons, secondWindowElements);
+Window secondWindow = Window(secondClickables, secondWindowElements);
 
 
 /*
@@ -159,6 +159,10 @@ void setup() {
   Serial.println(sizeof(InputManager));
   Serial.print(F("WindowManager: "));
   Serial.println(sizeof(WindowManager));
+  Serial.print(F("SystemInfoThread: "));
+  Serial.println(sizeof(SystemInfoThread));
+  Serial.print(F("SleepTestThread: "));
+  Serial.println(sizeof(SleepTestThread));
   Serial.print(F("Thread: "));
   Serial.println(sizeof(Thread));
   Serial.print(F("MicrOS: "));
@@ -169,8 +173,6 @@ void setup() {
   Serial.println(sizeof(TextButton));
   Serial.print(F("TextBox: "));
   Serial.println(sizeof(TextBox));
-  Serial.print(F("UIButton: "));
-  Serial.println(sizeof(UIButton));
   Serial.print(F("UIText: "));
   Serial.println(sizeof(UIText));
   Serial.print(F("UIElement: "));
@@ -183,10 +185,8 @@ void setup() {
   Serial.println(sizeof(Clickable));
   Serial.print(F("ButtonDriver: "));
   Serial.println(sizeof(ButtonDriver));
-  Serial.print(F("SystemInfoThread: "));
-  Serial.println(sizeof(SystemInfoThread));
-  Serial.print(F("SleepTestThread: "));
-  Serial.println(sizeof(SleepTestThread));
+  Serial.print(F("IRNecDriver: "));
+  Serial.println(sizeof(IRNecDriver));
   Serial.print(F("List<Thread*>: "));
   Serial.println(sizeof(List<Thread*>));
   #endif
@@ -247,16 +247,6 @@ void loop() {
 //    sprintf(der_buff,"perc: %d%%", sleepTestThread.GetDeltaPercentage());
 //    sleepDerivationText.text = der_buff;
 
-
-
-/*
-    #ifdef DEBUG
-    Serial.print(F("Main Loop. i:"));
-    Serial.println(i);
-    Serial.print(F("Free memory:"));
-    Serial.println(systemInfoThread.GetFreeMemory());
-    //delay(500);
-    #endif*/
 
   } while ( u8g2.nextPage() );
 

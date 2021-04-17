@@ -5,7 +5,6 @@
 #include "List.h"
 #include "Clickable.h"
 #include "WindowManager.h"
-#include "UIButton.h"
 
 
 /*
@@ -84,7 +83,7 @@ public:
     of the hardware.
     @param _ID: The ID of the clicked Button
     @param _state: the pressed state of the button
-      All UIButtons of the currently active window will be updated to
+      All Clickables of the currently active window will be updated to
       the given state.
   */
   void SetState(uint8_t _inputID, bool _state);
