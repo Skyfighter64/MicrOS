@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include <U8g2lib.h> //display API
 
-#include "UIButton.h"
+#include "Clickable.h"
 #include "Vector2D.h"
 #include "TextBox.h"
 
@@ -12,11 +12,11 @@
   class representing a button with text
 */
 
-class TextButton : public UIButton
+class TextButton : public TextBox, public Clickable
 {
   public:
     //textBox of the Button
-    TextBox textBox;
+    //TextBox textBox;
 
     TextButton(Vector2D _position, char * _text, uint8_t _inputID, void (* _OnClick)());
     TextButton(Vector2D _position, char * _text, uint8_t _inputID, const uint8_t * _font, void (* _OnClick)());
