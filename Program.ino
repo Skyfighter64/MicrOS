@@ -10,6 +10,7 @@
 #include <Wire.h>
 #endif
 #include "TextButton.h"
+#include "TextBox.h"
 #include "MicrOS.h"
 #include "PushButton.h"
 #include "Window.h"
@@ -51,10 +52,10 @@ SystemInfoThread systemInfoThread = SystemInfoThread();
   Main window design elements
 */
 
-//TextButton backButton = TextButton( Vector2D(0,50), "<", /*input ID*/ 3, &BackClick);
-//TextButton upButton = TextButton( Vector2D(32,50), "^", /*input ID*/ 4, &UpClick);
-//TextButton downButton = TextButton( Vector2D(64,50), "v", /*input ID*/ 6, &DownClick);
-TextButton okButton = TextButton( Vector2D(96,50), ">", /*input ID*/ 5, &RightClick);
+//TextButton backButton = TextButton(&u8g2, Vector2D(0,50), "<", /*input ID*/ 3, &BackClick);
+//TextButton upButton = TextButton(&u8g2, Vector2D(32,50), "^", /*input ID*/ 4, &UpClick);
+//TextButton downButton = TextButton(&u8g2, Vector2D(64,50), "v", /*input ID*/ 6, &DownClick);
+TextButton okButton = TextButton(&u8g2, Vector2D(96,50), ">", /*input ID*/ 5, &RightClick);
 List<Clickable*> windowButtons = List<Clickable*>(1, (Clickable*[]){/*&backButton, &upButton, &downButton,*/ &okButton});
 
 /*
@@ -85,16 +86,16 @@ void BackClick2()
   os.GetWindowManagerPtr()->SetActiveWindow(&mainWindow);
 }
 
-TextButton backButton2 = TextButton( Vector2D(0,50), "back", /*pin*/ 3, &BackClick2);
-TextButton upButton2 = TextButton( Vector2D(32,50), "up", /*pin*/ 4, nullptr);
-TextButton downButton2 = TextButton( Vector2D(64,50), "down", /*pin*/ 6, &DownClick);
-TextButton okButton2 = TextButton( Vector2D(96,50), "OK", /*pin*/ 5, nullptr);
+TextButton backButton2 = TextButton(&u8g2, Vector2D(0,50), "back", /*pin*/ 3, &BackClick2);
+TextButton upButton2 = TextButton(&u8g2, Vector2D(32,50), "up", /*pin*/ 4, nullptr);
+TextButton downButton2 = TextButton(&u8g2, Vector2D(64,50), "down", /*pin*/ 6, &DownClick);
+TextButton okButton2 = TextButton(&u8g2, Vector2D(96,50), "OK", /*pin*/ 5, nullptr);
 List<Clickable*> secondClickables = List<Clickable*>(4, (Clickable*[]) {&backButton2, &upButton2, &downButton2, &okButton2});
 
 TextBox ramBox = TextBox(/* position */ Vector2D(100, 10), /* text */ "");
 UIText cycleTimeText = UIText(Vector2D(0, 36), "");
 UIText cycleFrequencyText = UIText( Vector2D(60, 30), "");
-TextBox windowName = TextBox(Vector2D( 20, 10),"2nd Window");
+SimpleTextBox windowName = SimpleTextBox(&u8g2, Vector2D( 20, 10),"2nd Window");
 UIText sleepTestText = UIText(Vector2D(0,42), "");
 UIText sleepDerivationText = UIText(Vector2D(0,48), "");
 

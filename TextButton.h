@@ -6,22 +6,17 @@
 
 #include "Clickable.h"
 #include "Vector2D.h"
-#include "TextBox.h"
+#include "SimpleTextBox.h"
 
 /*
   class representing a button with text
 */
 
-class TextButton : public TextBox, public Clickable
+class TextButton : public SimpleTextBox, public Clickable
 {
   public:
-    //textBox of the Button
-    //TextBox textBox;
-
-    TextButton(Vector2D _position, char * _text, uint8_t _inputID, void (* _OnClick)());
-    TextButton(Vector2D _position, char * _text, uint8_t _inputID, const uint8_t * _font, void (* _OnClick)());
-    TextButton(Vector2D _position, Vector2D _size, char * _text, uint8_t _inputID, void (* _OnClick)());
-    TextButton(Vector2D _position, Vector2D _size, char * _text, uint8_t _inputID, const uint8_t * _font, void (* _OnClick)());
+    TextButton(U8G2 * _displayPtr, Vector2D _position, char * _text, uint8_t _inputID, void (* _OnClick)());
+    TextButton(U8G2 * _displayPtr, Vector2D _position, char * _text, uint8_t _inputID, const uint8_t * _font, void (* _OnClick)());
 
     void Draw(U8G2 * display);
 };

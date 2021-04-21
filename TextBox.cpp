@@ -58,7 +58,9 @@ void TextBox::Draw(U8G2 * displayPtr)
 
 
 
-
+/*
+  function drawing the box surrounding the text
+*/
 void TextBox::DrawShape(U8G2 * displayPtr)
 {
   //set the draw color to the inverted background color
