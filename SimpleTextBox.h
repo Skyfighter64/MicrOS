@@ -25,7 +25,7 @@ public:
 
 protected:
   //function calculating the size of the text in pixel
-  Vector2D CalculateBoxSize(char* _text, U8G2 * display);
+  Vector2D CalculateBoxSize(char* _text, U8G2 * _display);
 private:
   //function drawing the box
   void DrawShape(U8G2 * displayPtr);
