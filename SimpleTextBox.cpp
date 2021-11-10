@@ -1,6 +1,8 @@
 #include "SimpleTextBox.h"
 
-#define BORDER_DISTANCE 4
+//offset of the box to the text position
+#define Y_OFFSET 8
+#define X_OFFSET 2
 
 SimpleTextBox::SimpleTextBox(U8G2 * _displayPtr, Vector2D _position, char * _text) : UIText(_position, nullptr)
 {
@@ -40,20 +42,20 @@ void SimpleTextBox::DrawShape(U8G2 * displayPtr)
   if(highlighted)
   {
     //draw a box
-    displayPtr->drawRBox(position.x - BORDER_DISTANCE, position.y - BORDER_DISTANCE, size.x + 8, size.y + 8, /* corner radius: */ 1);
+    displayPtr->drawRBox(position.x - X_OFFSET, position.y - Y_OFFSET, size.x, size.y, /* corner radius: */ 1);
   }
   else
   {
     //draw a rectangle
-    displayPtr->drawRFrame(position.x - BORDER_DISTANCE, position.y - BORDER_DISTANCE, size.x + 8, size.y + 8, /* corner radius: */ 1);
+    displayPtr->drawRFrame(position.x - X_OFFSET, position.y - Y_OFFSET, size.x, size.y, /* corner radius: */ 1);
   }
 }
 
 Vector2D SimpleTextBox::CalculateBoxSize(char * _text, U8G2 * displayPtr)
 {
   //get the height and width of the text using the current font
-  int textHeight = displayPtr->getMaxCharHeight() + 4;
-  int textWidth = displayPtr->getStrWidth(_text) + 4;
+  int textHeight = displayPtr->getMaxCharHeight() + (Y_OFFSET / 2);
+  int textWidth = displayPtr->getStrWidth(_text) + X_OFFSET * 2;
 
   return Vector2D(textWidth, textHeight);
 }
