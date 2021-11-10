@@ -40,8 +40,9 @@ MicrOS os(&u8g2);
   input drivers
 */
 
-ButtonDriver buttonDriver = ButtonDriver(os.GetInputManagerPtr(), /*button pins*/(uint8_t[]){4, 3, 5, 6}, 4);
+ButtonDriver buttonDriver = ButtonDriver(os.GetInputManagerPtr(), /*button pins*/(uint8_t[]){6, 7, 11, 12}, /* number of button pins */ 4);
 IRNecDriver irDriver = IRNecDriver(os.GetInputManagerPtr());
+
 /*
   custom threads
 */
@@ -51,18 +52,15 @@ SystemInfoThread systemInfoThread = SystemInfoThread();
 /*
   Main window design elements
 */
-
 //TextButton backButton = TextButton(&u8g2, Vector2D(0,50), "<", /*input ID*/ 3, &BackClick);
 //TextButton upButton = TextButton(&u8g2, Vector2D(32,50), "^", /*input ID*/ 4, &UpClick);
 //TextButton downButton = TextButton(&u8g2, Vector2D(64,50), "v", /*input ID*/ 6, &DownClick);
-TextButton okButton = TextButton(&u8g2, Vector2D(96,50), ">", /*input ID*/ 5, &RightClick);
+TextButton okButton = TextButton(&u8g2, Vector2D(96,50), ">", /*input ID*/ 7, &RightClick);
 List<Clickable*> windowButtons = List<Clickable*>(1, (Clickable*[]){/*&backButton, &upButton, &downButton,*/ &okButton});
 
 /*
     main window
 */
-
-
 //TextBox menuItem0 =  TextBox(/* position */ Vector2D(0, 16), /* font */ u8g2_font_open_iconic_app_2x_t, /* text */ "\x40");
 //TextBox menuItem1 =  TextBox(/* position */ Vector2D(40, 16), /* font */ u8g2_font_open_iconic_app_2x_t, /* text */ "\x41");
 //TextBox menuItem2 =  TextBox(/* position */ Vector2D(80, 16), /* font */ u8g2_font_open_iconic_app_2x_t, /* text */ "\x42");
@@ -86,10 +84,10 @@ void BackClick2()
   os.GetWindowManagerPtr()->SetActiveWindow(&mainWindow);
 }
 
-TextButton backButton2 = TextButton(&u8g2, Vector2D(0,50), "back", /*pin*/ 3, &BackClick2);
-TextButton upButton2 = TextButton(&u8g2, Vector2D(32,50), "up", /*pin*/ 4, nullptr);
-TextButton downButton2 = TextButton(&u8g2, Vector2D(64,50), "down", /*pin*/ 6, &DownClick);
-TextButton okButton2 = TextButton(&u8g2, Vector2D(96,50), "OK", /*pin*/ 5, nullptr);
+TextButton backButton2 = TextButton(&u8g2, Vector2D(0,55), "back", /*pin*/ 12, &BackClick2);
+TextButton upButton2 = TextButton(&u8g2, Vector2D(32,55), "Up", /*pin*/ 11, nullptr);
+TextButton downButton2 = TextButton(&u8g2, Vector2D(64,55), "Down", /*pin*/ 6, /*u8g2_font_mademoiselle_mel_tr,*/ &DownClick);
+TextButton okButton2 = TextButton(&u8g2, Vector2D(96,55), "OK", /*pin*/ 7, &ChangeButtonText);
 List<Clickable*> secondClickables = List<Clickable*>(4, (Clickable*[]) {&backButton2, &upButton2, &downButton2, &okButton2});
 
 TextBox ramBox = TextBox(/* position */ Vector2D(100, 10), /* text */ "");
@@ -111,6 +109,10 @@ Window secondWindow = Window(secondClickables, secondWindowElements);
 
 int i = 0;
 
+void ChangeButtonText()
+{
+  okButton2.SetText("Ok2", &u8g2);
+}
 void IncreaseCounter()
 {
   i++;
@@ -151,11 +153,11 @@ void setup() {
   //set up the display
   u8g2.begin();
   u8g2.setFont(u8g2_font_tinytim_tf);
-
+  windowName.SetText("2nd Window", &u8g2);
   #ifdef DEBUG
   Serial.begin(9600);
 
-  Serial.println(F("Size of:"));
+  Serial.println(F("\nSize of:"));
   Serial.print(F("InputManager: "));
   Serial.println(sizeof(InputManager));
   Serial.print(F("WindowManager: "));
@@ -190,6 +192,8 @@ void setup() {
   Serial.println(sizeof(IRNecDriver));
   Serial.print(F("List<Thread*>: "));
   Serial.println(sizeof(List<Thread*>));
+  Serial.print(F("SimpleTextBox: "));
+  Serial.println(sizeof(SimpleTextBox));
   #endif
 
 

@@ -24,6 +24,7 @@ void IRNecDriver::ReadIRSensor()
   {
     //read the latest received value from the sensor
     Nec_data_t  data = irlRemote.read();
+    Serial.println("Received IR Signal");
     //launch a click event for the received command
     LaunchClickEvent(data.command);
     //set the state for this command if needed
@@ -93,13 +94,13 @@ uint8_t IRNecDriver::GetID(Nec_command_t command)
    {
      /* navigation buttons */
     case /* up */ 0x18:
-      return 4;
+      return 11;
     case /* down */ 0x52:
-      return 6;
+      return 7;
     case /* left */ 0x08:
-      return 3;
+      return 12;
     case /* right */ 0x5A:
-      return 5;
+      return 6;
     case /* OK */ 0x1C:
       return 27;
 
