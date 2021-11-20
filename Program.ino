@@ -26,7 +26,7 @@
 #include "SystemInfoThread.h"
 #include "SleepTestThread.h"
 
-#define DEBUG
+//#define DEBUG
 
 U8G2_SH1106_128X64_NONAME_1_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 
@@ -157,6 +157,7 @@ void setup() {
   #ifdef DEBUG
   Serial.begin(9600);
 
+  // print out the size of each object in bytes for optimizing memory usage
   Serial.println(F("\nSize of:"));
   Serial.print(F("InputManager: "));
   Serial.println(sizeof(InputManager));

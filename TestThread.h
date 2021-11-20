@@ -22,7 +22,9 @@ class TestThread : public Thread
       //check if serial communication is ready
       if(Serial)
       {
+        //increase the counter by 1
         counter ++;
+
         //output a message
         Serial.print(F("Running test thread"));
         Serial.println(counter);
