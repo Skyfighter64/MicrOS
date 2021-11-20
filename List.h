@@ -1,6 +1,13 @@
 #ifndef LIST_H
 #define LIST_H
 
+/**
+  List object providing a memory-friendly way to store objects of type T
+  Notes:
+  - new Elements will be added at the beginnig of the list (like a stack, for performance reasons)
+  - getNextPtr() can be used to iterate the list efficiently. However, it should not be reused within
+    the iterating loop.
+*/
 template <class T>
 class List
 {
@@ -113,7 +120,8 @@ public:
     return root == nullptr? nullptr : &root->value;
   }
 
-  //get a pointer to the next item in the list;
+  // get a pointer to the next item in the list;
+  // this can be used to iterate the list
   // returns a nullptr if the next item is the end of the list, or the root element on
   // its first call
   T * getNextPtr()
