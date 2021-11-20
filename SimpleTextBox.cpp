@@ -28,10 +28,10 @@ void SimpleTextBox::Draw(U8G2 * displayPtr)
   //set the font if needed
   //TODO: this may not be needed as UIText::Draw already sets the font
   const uint8_t * oldFont = SetFont(UIText::font, displayPtr);
-  //draw the text
-  UIText::Draw(displayPtr);
   //draw the box
   DrawShape(displayPtr);
+  //draw the text
+  UIText::Draw(displayPtr);
 
   //reset the font
   displayPtr->setFont(oldFont);
@@ -39,11 +39,11 @@ void SimpleTextBox::Draw(U8G2 * displayPtr)
 
 void SimpleTextBox::DrawShape(U8G2 * displayPtr)
 {
+  //set the draw color to the inverted background color
+  displayPtr->setDrawColor(1);
   //check if the box is highlighted
   if(highlighted)
   {
-    //set the draw color to the inverted background color
-    displayPtr->setDrawColor(2);
     //draw a box
     displayPtr->drawRBox(position.x - PADDING, position.y - size.y + PADDING, size.x, size.y, /* corner radius: */ 1);
   }
@@ -63,7 +63,7 @@ Vector2D SimpleTextBox::CalculateBoxSize(char * _text, U8G2 * _displayPtr)
   uint8_t* oldFont = SetFont(UIText::font, _displayPtr);
 
   // initialize the font if not set yet
-  // this occours when initializing this object befpre u8g2.begin() is called
+  // this occours when initializing this object before u8g2.begin() is called
   if (_displayPtr->getU8g2()->font == nullptr)
   {
     // set u8g2_font_tinytim_tf as default font if no font was set yet
