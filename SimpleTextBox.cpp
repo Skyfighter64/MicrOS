@@ -25,16 +25,10 @@ void SimpleTextBox::SetText(char* text, U8G2 * displayPtr)
 
 void SimpleTextBox::Draw(U8G2 * displayPtr)
 {
-  //set the font if needed
-  //TODO: this may not be needed as UIText::Draw already sets the font
-  const uint8_t * oldFont = SetFont(UIText::font, displayPtr);
-  //draw the box
+  //draw the frame/box to the display
   DrawShape(displayPtr);
-  //draw the text
+  //draw the text to the display
   UIText::Draw(displayPtr);
-
-  //reset the font
-  displayPtr->setFont(oldFont);
 }
 
 void SimpleTextBox::DrawShape(U8G2 * displayPtr)
