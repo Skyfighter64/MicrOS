@@ -34,7 +34,7 @@ class ButtonDriver : public Thread
 public:
   /*
     Default constructor
-    @param _inputManager: the inputManager of the OS
+    @param _inputManager: the inputManager of the OS, non-null
     @pararm _pins: an array containing the numbers of the pins at which
       the buttons are connected to the microcontroller.
     @param _pins_length: the length of the _pins array

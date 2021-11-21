@@ -70,6 +70,7 @@ class IRNecDriver : public Thread
 public:
   /*
     default constructor
+    @param _inputManagerPtr: the inputManager of the OS, non-null
   */
   IRNecDriver(InputManager * _inputManagerPtr);
   /*
