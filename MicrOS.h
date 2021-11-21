@@ -24,6 +24,8 @@ class MicrOS
   public:
     // default constructor
     MicrOS(U8G2 * _displayPtr);
+    //headless constructor
+    MicrOS();
     // default destructor
     ~MicrOS();
     //function starting the OS, this should be called only once, e.g. in setup()

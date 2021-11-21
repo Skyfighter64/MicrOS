@@ -8,6 +8,12 @@ Window::Window(List<Clickable*>& _clickables, List<UIElement*>& _uiElements) : c
 
 void Window::Draw(U8G2 * displayPtr)
 {
+  // check if a display is present
+  if(displayPtr == nullptr)
+  {
+    //no display given
+    return;
+  }
   /*
     Draw all UI elements
   */

@@ -12,6 +12,16 @@ MicrOS::MicrOS(U8G2 * _displayPtr)
   inputManagerPtr = new InputManager(windowManagerPtr);
 }
 
+/**
+* Headless constructor (no UI) for the OS
+*
+*/
+MicrOS::MicrOS()
+{
+  windowManagerPtr = nullptr;
+  inputManagerPtr = nullptr;
+}
+
 //destructor of the default constructor
 MicrOS::~MicrOS()
 {
@@ -49,10 +59,16 @@ void MicrOS::Run()
   function adding the given thread to the list of active threads
   @param threadPtr: pointer to the thread which should be added
   @return: 0 if added successfully,
-          -1 if the thread is already inside the list
+          -1 if the thread could not be added  (bc. it's already inside the list
+          or it is invalid)
 */
 int MicrOS::AddThread(Thread * threadPtr)
 {
+  //check if the thread is not a nullptr
+  if(threadPtr == nullptr)
+  {
+    return -1;
+  }
   //check if the thread is already inside the list
   if(threads.contains(threadPtr))
   {
