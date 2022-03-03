@@ -77,9 +77,9 @@ class Thread
 
   protected:
     //the time in ms at which the thread finishes sleeping
-    unsigned long sleepEndTime;
+    unsigned long sleepEndTime = 0;
     //flag indicating the current state of this thread
-    State threadState;
+    State threadState = ACTIVE;
 
 };
 #endif
