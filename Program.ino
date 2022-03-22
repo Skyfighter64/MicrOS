@@ -58,6 +58,7 @@ TextButton downButton = TextButton(&u8g2, Vector2D(64,50), "v", /*input ID*/ 6, 
 TextButton okButton = TextButton(&u8g2, Vector2D(96,50), ">", /*input ID*/ 7, &RightClick);
 List<Clickable*> windowButtons = List<Clickable*>(4, (Clickable*[]){&backButton, &upButton, &downButton, &okButton});
 
+
 /*
     main window
 */
@@ -71,8 +72,7 @@ List<Clickable*> windowButtons = List<Clickable*>(4, (Clickable*[]){&backButton,
 
 
 UIText counter = UIText(/* position */ Vector2D(10, 10), /* text */ "");
-List<UIElement*> windowElements = List<UIElement*>(5, (UIElement*[]) { &counter, /*&menuItem0, &menuItem1, &menuItem2,*/ &backButton, &upButton, &downButton, &okButton});
-Window mainWindow = Window(windowButtons, windowElements);
+Window mainWindow = Window();
 
 /*
     second window
@@ -84,11 +84,12 @@ void BackClick2()
   os.GetWindowManagerPtr()->SetActiveWindow(&mainWindow);
 }
 
+Window secondWindow = Window();
+
 TextButton backButton2 = TextButton(&u8g2, Vector2D(0,55), "back", /*pin*/ 12, &BackClick2);
 TextButton upButton2 = TextButton(&u8g2, Vector2D(32,55), "Up", /*pin*/ 11, nullptr);
 TextButton downButton2 = TextButton(&u8g2, Vector2D(64,55), "Down", /*pin*/ 6, /*u8g2_font_mademoiselle_mel_tr,*/ &FreezeInputs);
 TextButton okButton2 = TextButton(&u8g2, Vector2D(96,55), "OK", /*pin*/ 7, &ChangeButtonText);
-List<Clickable*> secondClickables = List<Clickable*>(4, (Clickable*[]) {&backButton2, &upButton2, &downButton2, &okButton2});
 
 TextBox ramBox = TextBox(/* position */ Vector2D(100, 10), /* text */ "");
 UIText cycleTimeText = UIText(Vector2D(0, 36), "");
@@ -97,10 +98,6 @@ SimpleTextBox windowName = SimpleTextBox(&u8g2, Vector2D( 20, 10),"2nd Window");
 UIText sleepTestText = UIText(Vector2D(0,42), "");
 UIText sleepDerivationText = UIText(Vector2D(0,48), "");
 
-
-List<UIElement*> secondWindowElements = List<UIElement*>(11, (UIElement*[]){&sleepDerivationText, &sleepTestText, &windowName,&ramBox, &cycleTimeText, &cycleFrequencyText, &counter, &backButton2, &upButton2, &downButton2, &okButton2});
-
-Window secondWindow = Window(secondClickables, secondWindowElements);
 
 
 /*
@@ -113,27 +110,16 @@ void ChangeButtonText()
 {
   okButton2.SetText("Ok2", &u8g2);
 }
-void IncreaseCounter()
-{
-  i++;
-
-}
-
-void DecreaseCounter()
-{
-  i--;
-}
-
+void IncreaseCounter(){i++;}
+void DecreaseCounter(){i--;}
 void BackClick()
 {
   os.GetWindowManagerPtr()->Sleep(2000);
 }
-
 void UpClick()
 {
   IncreaseCounter();
 }
-
 void DownClick()
 {
   DecreaseCounter();
@@ -142,17 +128,48 @@ void FreezeInputs()
 {
   buttonDriver.Sleep(2000);
 }
-
 void RightClick()
 {
  //i = 100;
  os.GetWindowManagerPtr()->SetActiveWindow(&secondWindow);
-
 }
 
 
 
 void setup() {
+
+  /*
+
+      Set up the UI Windows by adding each UI Element to the window
+
+  */
+  // set up the main window
+  mainWindow.AddUIElement(backButton);
+  mainWindow.AddClickable(backButton);
+  mainWindow.AddUIElement(upButton);
+  mainWindow.AddClickable(upButton);
+  mainWindow.AddUIElement(downButton);
+  mainWindow.AddClickable(downButton);
+  mainWindow.AddUIElement(okButton);
+  mainWindow.AddClickable(okButton);
+  mainWindow.AddUIElement(counter);
+
+  // set up the second window
+  secondWindow.AddUIElement(backButton2);
+  secondWindow.AddClickable(backButton2);
+  secondWindow.AddUIElement(upButton2);
+  secondWindow.AddClickable(upButton2);
+  secondWindow.AddUIElement(downButton2);
+  secondWindow.AddClickable(downButton2);
+  secondWindow.AddUIElement(okButton2);
+  secondWindow.AddClickable(okButton2);
+  secondWindow.AddUIElement(ramBox);
+  secondWindow.AddUIElement(cycleTimeText);
+  secondWindow.AddUIElement(cycleFrequencyText);
+  secondWindow.AddUIElement(windowName);
+  secondWindow.AddUIElement(sleepTestText);
+  secondWindow.AddUIElement(sleepDerivationText);
+
 
   //set up the display
   u8g2.begin();
@@ -220,9 +237,10 @@ uint8_t result = 0;
 void loop() {
   // put your main code here, to run repeatedly:
 
-
+  for (int i = 0; i < 100; i++)
+  {
     os.Run();
-
+  }
 
     //update the UI
     char i_buff[4];

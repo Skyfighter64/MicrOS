@@ -48,8 +48,10 @@ public:
   List<Clickable*> clickables;
   List<UIElement*> uiElements;
   void Draw(U8G2 * displayPtr);
+  void AddUIElement(UIElement &element);
+  void AddClickable(Clickable &clickable);
 
-  Window(List<Clickable*>& _clickables, List<UIElement*>& _uiElements);
+  Window();
 
 };
 

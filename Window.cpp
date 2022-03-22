@@ -1,7 +1,7 @@
 #include "Window.h"
 
 
-Window::Window(List<Clickable*>& _clickables, List<UIElement*>& _uiElements) : clickables(_clickables), uiElements(_uiElements)
+Window::Window() : clickables(List<Clickable*>()), uiElements(List<UIElement*>())
 {
 
 }
@@ -23,4 +23,14 @@ void Window::Draw(U8G2 * displayPtr)
       (*elementPtr)->Draw(displayPtr);
       elementPtr = uiElements.getNextPtr();
   }
+}
+
+void Window::AddUIElement(UIElement &element)
+{
+  uiElements.add(&element);
+}
+
+void Window::AddClickable(Clickable &clickable)
+{
+  clickables.add(&clickable);
 }
