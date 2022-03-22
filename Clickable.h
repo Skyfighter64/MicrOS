@@ -4,7 +4,11 @@
 #include <Arduino.h>
 
 /*
-  base class for all clickable ui elements
+  base class for all clickable elements
+
+  A clickable is an element which can be triggered by an input (e.g. Button press)
+  and executes its "OnClick" function if so. It has no UI Representation by default,
+  meaning a Clickable itself is not visible on the screen
 */
 
 class Clickable

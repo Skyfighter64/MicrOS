@@ -25,7 +25,7 @@ class WindowManager : public Thread
       Note: This is not accurate if a page buffer is used by u8g2 (delay has to
        be divided by page count additionally)
     */
-    unsigned long frameDelay = 10;
+    unsigned long frameDelay = 4;
 
     WindowManager( U8G2 * _displayPtr);
     void SetActiveWindow(Window * windowPtr);

@@ -4,6 +4,16 @@
 #include "Vector2D.h"
 #include <U8g2lib.h> //display API
 
+
+/**
+  The base class for everything drawn to the display
+  eg. Buttons, TextBoxes, ...
+
+  Contains basic properties such as position and size of the UI Element
+  and a Draw() function which implements the drawing to the display of
+  this element using the U8G2 Display driver
+*/
+
 class UIElement
 {
 public:
