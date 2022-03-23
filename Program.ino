@@ -91,10 +91,10 @@ TextButton upButton2 = TextButton(&u8g2, Vector2D(32,55), "Up", /*pin*/ 11, null
 TextButton downButton2 = TextButton(&u8g2, Vector2D(64,55), "Down", /*pin*/ 6, /*u8g2_font_mademoiselle_mel_tr,*/ &FreezeInputs);
 TextButton okButton2 = TextButton(&u8g2, Vector2D(96,55), "OK", /*pin*/ 7, &ChangeButtonText);
 
-TextBox ramBox = TextBox(/* position */ Vector2D(100, 10), /* text */ "");
+TextBox ramBox = TextBox(/* display driver */ &u8g2, /* position */ Vector2D(100, 10), /* text */ "");
 UIText cycleTimeText = UIText(Vector2D(0, 36), "");
 UIText cycleFrequencyText = UIText( Vector2D(60, 30), "");
-SimpleTextBox windowName = SimpleTextBox(&u8g2, Vector2D( 20, 10),"2nd Window");
+TextBox windowName = TextBox(&u8g2, Vector2D( 20, 10),"2nd Window");
 UIText sleepTestText = UIText(Vector2D(0,42), "");
 UIText sleepDerivationText = UIText(Vector2D(0,48), "");
 
@@ -214,8 +214,6 @@ void setup() {
   Serial.println(sizeof(IRNecDriver));
   Serial.print(F("List<Thread*>: "));
   Serial.println(sizeof(List<Thread*>));
-  Serial.print(F("SimpleTextBox: "));
-  Serial.println(sizeof(SimpleTextBox));
   #endif
 
 
@@ -249,7 +247,7 @@ void loop() {
 
     char mem_text_buff[5];
     sprintf(mem_text_buff, "%dB", systemInfoThread.GetFreeMemory());
-    ramBox.uiText.text = mem_text_buff;
+    ramBox.SetText(mem_text_buff, &u8g2);
 
     //measure the cycle frequency in Hz and display it
     char frequency_text_buff[15];

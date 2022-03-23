@@ -6,13 +6,13 @@
 
 #include "Clickable.h"
 #include "Vector2D.h"
-#include "SimpleTextBox.h"
+#include "TextBox.h"
 
 /*
   class representing a button with text
 */
 
-class TextButton : public SimpleTextBox, public Clickable
+class TextButton : public TextBox, public Clickable
 {
   public:
     TextButton(U8G2 * _displayPtr, Vector2D _position, char * _text, uint8_t _inputID, void (* _OnClick)());

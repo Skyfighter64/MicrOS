@@ -4,7 +4,7 @@
 /*
   Constructor for an automatically sized button depending on text
 */
-TextButton::TextButton(U8G2 * _displayPtr, Vector2D _position, char * _text, uint8_t _inputID, void (* _OnClick)()): Clickable(_inputID, _OnClick), SimpleTextBox(SimpleTextBox(_displayPtr, _position, _text))
+TextButton::TextButton(U8G2 * _displayPtr, Vector2D _position, char * _text, uint8_t _inputID, void (* _OnClick)()): Clickable(_inputID, _OnClick), TextBox(TextBox(_displayPtr, _position, _text))
 {
 
 }
@@ -12,7 +12,7 @@ TextButton::TextButton(U8G2 * _displayPtr, Vector2D _position, char * _text, uin
 /*
   Constructor for an automatically sized button depending on text with font selection
 */
-TextButton::TextButton(U8G2 * _displayPtr, Vector2D _position, char * _text, uint8_t _inputID, const uint8_t * _font, void (* _OnClick)()): Clickable(_inputID, _OnClick), SimpleTextBox(SimpleTextBox(_displayPtr, _position, _font, _text))
+TextButton::TextButton(U8G2 * _displayPtr, Vector2D _position, char * _text, uint8_t _inputID, const uint8_t * _font, void (* _OnClick)()): Clickable(_inputID, _OnClick), TextBox(TextBox(_displayPtr, _position, _font, _text))
 {
 
 }
@@ -27,5 +27,5 @@ void TextButton::Draw(U8G2 * displayPtr)
   //using the Clickable::state value
   highlighted = state;
   //draw the text box
-  SimpleTextBox::Draw(displayPtr);
+  TextBox::Draw(displayPtr);
 }

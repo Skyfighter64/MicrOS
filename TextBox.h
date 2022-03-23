@@ -1,40 +1,33 @@
-#ifndef TEXTBOX_H
-#define TEXTBOX_H
+#ifndef TEXT_BOX_H
+#define TEXT_BOX_H
 
-#include <Arduino.h>
-#include "UIElement.h"
+#include <U8g2lib.h>
 #include "UIText.h"
+#include "Clickable.h"
+#include "Vector2D.h"
 
-
-
-
-class TextBox : public UIElement
+/*
+  A simple text box with minimal features for maximum efficiency
+*/
+class TextBox : public UIText
 {
-  public:
-    UIText uiText;
-    //flag indicating if this textbox is highlighted
-    bool highlighted;
-    //flag indicating if the textbox should rescale horizontally depending on the text
-    bool autoscale;
+public:
+  //default constructor
+  TextBox(U8G2 * _displayPtr, Vector2D _position, char * _text);
+  //constructor with font selection
+  TextBox(U8G2 * _displayPtr, Vector2D _position,  const uint8_t * _font, char * _text);
+  //setter for the text
+  void SetText(char* text, U8G2 * displayPtr);
+  //override UIText::Draw()
+  void Draw(U8G2 * displayPtr);
 
-    TextBox();
-    TextBox(Vector2D _position, char * _text);
-    TextBox(Vector2D _position,  const uint8_t * _font, char * _text);
-    TextBox(Vector2D _position, Vector2D _size, char * _text);
-    TextBox(Vector2D _position, Vector2D _size,const uint8_t * _font, char * _text);
+  bool highlighted;
 
-    void Draw(U8G2 * displayPtr);
-
-  protected:
-    uint8_t * SetFont(const uint8_t * font, U8G2 * displayPtr);
-
-  private:
-    void DrawShape(U8G2 * displayPtr);
-    void DrawContent(U8G2 * displayPtr);
-
-    Vector2D CalculateTextPosition(U8G2 * displayPtr);
-    Vector2D CalculateBoxSize(U8G2 * displayPtr);
-
-
+protected:
+  //function calculating the size of the text in pixel
+  Vector2D CalculateBoxSize(char* _text, U8G2 * _display);
+private:
+  //function drawing the box
+  void DrawShape(U8G2 * displayPtr);
 };
 #endif
