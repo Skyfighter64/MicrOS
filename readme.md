@@ -18,4 +18,4 @@ TODO
 
 ### License
 
-TODO
+MIT (See LICENSE file)
